@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviour
     public List<Item> slots = new List<Item>();
 
     private ItemDatabase _database;
+    private Vector2 _size;
+    private GUIStyle _style;
     
     // Start is called before the first frame update
     void Start()
@@ -58,7 +60,7 @@ public class Inventory : MonoBehaviour
     {
         _tooltip = "";
         GUI.skin = slotSkin;
-         
+
         if (_showInventory)
         {
             DrawInventory();
@@ -66,7 +68,13 @@ public class Inventory : MonoBehaviour
 
         if (_showTooltip)
         {
-            GUI.Box(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 200, 200), _tooltip, slotSkin.GetStyle("Tooltip"));
+            GUIContent content = new GUIContent(_tooltip);
+            _style = GUI.skin.box;
+            _style.fontSize = 18;
+            _style.alignment = TextAnchor.UpperLeft;
+            _size = _style.CalcSize(content);
+            
+            GUI.Box(new Rect(Event.current.mousePosition.x + 20f, Event.current.mousePosition.y, _size.x, _size.y), _tooltip, _style);
         }
     }
 
