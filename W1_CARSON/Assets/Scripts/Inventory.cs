@@ -106,7 +106,32 @@ public class Inventory : MonoBehaviour
 
     string CreateTooltip(Item item)
     {
-        _tooltip = item.itemName;
+        switch (item.itemType)
+        {
+            case Item.ItemType.Weapon:
+                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.itemDescription + 
+                           "\n\nAttack: " + "</color>" + "<color=#DA5151>" + item.itemAttack + "</color>" + 
+                           "<color=#E9E9E9>" + "\nDefense: " + "</color>" + "<color=#67AFC6>" + item.itemDefense + "</color>" + 
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                break;
+            case Item.ItemType.Magical:
+                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.itemDescription + 
+                           "\n\nAttack: " + "</color>" + "<color=#DA5151>" + item.itemAttack + "</color>" + 
+                           "<color=#E9E9E9>" + "\nDefense: " + "</color>" + "<color=#67AFC6>" + item.itemDefense + "</color>" +
+                           "<color=#E9E9E9>" + "\nHealth: " + "</color>" + "<color=#7DC062>" + item.itemHealth + "</color>" +
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                break;
+            case Item.ItemType.Consumable:
+                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.itemDescription + "</color>" +
+                           "<color=#E9E9E9>" + "\nHealth: " + "</color>" + "<color=#7DC062>" + item.itemHealth + "</color>" +
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                break;
+            default:
+                break;
+        }
         return _tooltip;
     }
 
