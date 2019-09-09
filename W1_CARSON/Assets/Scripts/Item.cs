@@ -34,4 +34,9 @@ public class Item
         itemValue = value;
         itemType = type;
     }
+
+    public Item()
+    {
+        //slot constructor
+    }
 }
