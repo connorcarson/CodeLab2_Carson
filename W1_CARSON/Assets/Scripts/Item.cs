@@ -21,4 +21,16 @@ public class Item
         Consumable,
         Quest
     }
+
+    public Item(string name, int id, string description, int attack, int defense, int health, int value, ItemType type)
+    {
+        itemName = name;
+        itemID = id;
+        itemDescription = description;
+        itemAttack = attack;
+        itemDefense = defense;
+        itemHealth = health;
+        itemValue = value;
+        itemType = type;
+    }
 }
