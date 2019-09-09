@@ -43,7 +43,13 @@ public class Inventory : MonoBehaviour
         {
             _showInventory = !_showInventory;
             //Debug.Log("You've pressed the inventory button!");
-        }    
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        { 
+            Debug.Log("delete!");
+            RemoveItem(2);
+        }
     }
     
     private void OnGUI()
@@ -99,6 +105,18 @@ public class Inventory : MonoBehaviour
                         inventory[i] = _database.itemList[j];   
                     }
                 }
+                break;
+            }
+        }
+    }
+
+    void RemoveItem(int id)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].itemID == id)
+            {
+                inventory[i] = new Item();
                 break;
             }
         }
