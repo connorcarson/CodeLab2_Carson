@@ -19,7 +19,7 @@ public class Item
     {
         Weapon,
         Consumable,
-        Quest
+        Magical
     }
 
     public Item(string name, int id, string description, int attack, int defense, int health, int value, ItemType type)
@@ -27,6 +27,7 @@ public class Item
         itemName = name;
         itemID = id;
         itemDescription = description;
+        itemIcon = Resources.Load<Texture2D>("ItemIcons/" + name);
         itemAttack = attack;
         itemDefense = defense;
         itemHealth = health;
