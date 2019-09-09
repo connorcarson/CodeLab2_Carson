@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour
     public int slotsY = 5;
     public GUISkin slotSkin;
     private bool _showInventory;
+    private bool _showTooltip;
+    private string _tooltip;
     
     public List<Item> inventory = new List<Item>();
     public List<Item> slots = new List<Item>();
@@ -54,17 +56,18 @@ public class Inventory : MonoBehaviour
     
     private void OnGUI()
     {
+        _tooltip = "";
         GUI.skin = slotSkin;
          
         if (_showInventory)
         {
             DrawInventory();
         }
-        
-        /*for (int i = 0; i < inventory.Count; i++)
+
+        if (_showTooltip)
         {
-            GUI.Label(new Rect(10, i * 20, 200, 50), inventory[i].itemName);
-        }*/
+            GUI.Box(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 200, 200), _tooltip, slotSkin.GetStyle("Tooltip"));
+        }
     }
 
     void DrawInventory()
@@ -76,8 +79,7 @@ public class Inventory : MonoBehaviour
             for (int x = 0; x < slotsX; x++)
             {
                 Rect slotRect = new Rect(x * 105, y * 105, 100, 100 );
-                //smaller icons with offset
-                //Rect itemRect = new Rect(x * 105 + 15, y * 105 + 15, 70, 70);
+                //Rect itemRect = new Rect(x * 105 + 15, y * 105 + 15, 70, 70); //smaller icons with offset
                 GUI.Box(slotRect, y.ToString(), slotSkin.GetStyle("Slot"));
 
                 slots[i] = inventory[i];
@@ -85,11 +87,27 @@ public class Inventory : MonoBehaviour
                 if (slots[i].itemName != null)
                 {
                     GUI.DrawTexture(slotRect, slots[i].itemIcon);
+                    if(slotRect.Contains(Event.current.mousePosition))
+                    {
+                        _showTooltip = true;
+                        _tooltip = CreateTooltip(slots[i]);
+                    }
+                }
+
+                if (_tooltip == "")
+                {
+                    _showTooltip = false;
                 }
                 
                 i++;
             }
         }
+    }
+
+    string CreateTooltip(Item item)
+    {
+        _tooltip = item.itemName;
+        return _tooltip;
     }
 
     void AddItem(int id)
