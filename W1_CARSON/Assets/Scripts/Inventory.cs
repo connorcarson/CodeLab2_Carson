@@ -28,9 +28,11 @@ public class Inventory : MonoBehaviour
         
         _database = GameObject.FindGameObjectWithTag("ItemDatabase").GetComponent<ItemDatabase>();
         
-        inventory[0] = _database.itemList[1];
-        inventory[1] = _database.itemList[2];
-        inventory[2] = _database.itemList[3];
+        AddItem(1);
+        AddItem(2);
+        AddItem(4);
+        
+        print(InventoryContains(3));
 
     }
 
@@ -47,7 +49,7 @@ public class Inventory : MonoBehaviour
     private void OnGUI()
     {
         GUI.skin = slotSkin;
-        
+         
         if (_showInventory)
         {
             DrawInventory();
@@ -83,5 +85,37 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    
+
+    void AddItem(int id)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].itemName == null)
+            {
+                for (int j = 0; j < _database.itemList.Count; j++)
+                {
+                    if (_database.itemList[j].itemID == id)
+                    {
+                        inventory[i] = _database.itemList[j];   
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    bool InventoryContains(int id)
+    {
+        bool result = false;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            result = inventory[i].itemID == id;
+            if (result)
+            {
+                break;
+            }
+        }
+        return result;
+    }
+
 }
