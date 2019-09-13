@@ -10,6 +10,9 @@ public class Inventory : MonoBehaviour
     
     public int slotsX = 4;
     public int slotsY = 5;
+
+    private int _prevIndex;
+    
     private float _iconWidth = 100;
     private float _iconHeight = 100;
     
@@ -101,7 +104,7 @@ public class Inventory : MonoBehaviour
             for (int x = 0; x < slotsX; x++)
             {
                 Rect slotRect = new Rect(x * 105, y * 105, 100, 100 );
-                //Rect itemRect = new Rect(x * 105 + 15, y * 105 + 15, 70, 70); //smaller icons with offset
+
                 GUI.Box(slotRect, y.ToString(), slotSkin.GetStyle("Slot"));
 
                 slots[i] = inventory[i];
@@ -114,11 +117,42 @@ public class Inventory : MonoBehaviour
                         if (e.button == 0 && e.type == EventType.MouseDrag && !_draggingItem)
                         {
                             _draggingItem = true;
+                            _prevIndex = i;
                             _draggedItem = slots[i];
                             inventory[i] = new Item();
                         }
-                        _showTooltip = true;
-                        _tooltip = CreateTooltip(slots[i]);
+                        if(e.type == EventType.MouseUp && _draggingItem)
+                        {
+                            inventory[_prevIndex] = inventory[i];
+                            inventory[i] = _draggedItem;
+                            _draggingItem = false;
+                            _draggedItem = null;
+                        }
+                        if (!_draggingItem)
+                        {
+                            _showTooltip = true;
+                            _tooltip = CreateTooltip(slots[i]);
+                        }
+
+                        if (e.isMouse && e.type == EventType.MouseUp && e.button == 1)
+                        {
+                            if (slots[i].itemType == Item.ItemType.Consumable)
+                            {
+                                UseItem(slots[i], i, true);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (slotRect.Contains(e.mousePosition))
+                    {
+                        if (e.type == EventType.MouseUp && _draggingItem)
+                        {
+                            inventory[i] = _draggedItem;
+                            _draggingItem = false;
+                            _draggedItem = null;
+                        }
                     }
                 }
 
@@ -190,6 +224,24 @@ public class Inventory : MonoBehaviour
                 inventory[i] = new Item();
                 break;
             }
+        }
+    }
+
+    void UseItem(Item item, int slot, bool deleteItem)
+    {
+        switch (item.itemID)
+        {
+            case 4:
+                /*PlayerStats.IncreaseStat(3, 15, 50f)*/
+                Debug.Log("Used consumable: " + item.itemName);
+                break;
+            default:
+                break;
+        }
+
+        if (deleteItem)
+        {
+            inventory[slot] = new Item();
         }
     }
 
