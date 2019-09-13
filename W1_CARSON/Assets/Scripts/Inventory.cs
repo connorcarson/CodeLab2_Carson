@@ -6,20 +6,28 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    private ItemDatabase _database;
+    
     public int slotsX = 4;
     public int slotsY = 5;
+    private float _iconWidth = 100;
+    private float _iconHeight = 100;
+    
     public GUISkin slotSkin;
+    private GUIStyle _style;
+    private Vector2 _size;
+    
     private bool _showInventory;
     private bool _showTooltip;
-    private string _tooltip;
+    private bool _draggingItem;
     
+    private string _tooltip;
+
+    private Item _draggedItem;
+
     public List<Item> inventory = new List<Item>();
     public List<Item> slots = new List<Item>();
 
-    private ItemDatabase _database;
-    private Vector2 _size;
-    private GUIStyle _style;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +43,7 @@ public class Inventory : MonoBehaviour
         AddItem(1);
         AddItem(2);
         AddItem(4);
+        AddItem(3);
         
         print(InventoryContains(3));
 
@@ -64,22 +73,27 @@ public class Inventory : MonoBehaviour
         if (_showInventory)
         {
             DrawInventory();
-        }
-
-        if (_showTooltip)
-        {
-            GUIContent content = new GUIContent(_tooltip);
-            _style = GUI.skin.box;
-            _style.fontSize = 18;
-            _style.alignment = TextAnchor.UpperLeft;
-            _size = _style.CalcSize(content);
+            if (_showTooltip)
+            {
+                GUIContent content = new GUIContent(_tooltip);
+                _style = GUI.skin.box;
+                _style.fontSize = 18;
+                _style.alignment = TextAnchor.UpperLeft;
+                _size = _style.CalcSize(content);
             
-            GUI.Box(new Rect(Event.current.mousePosition.x + 20f, Event.current.mousePosition.y, _size.x, _size.y), _tooltip, _style);
+                GUI.Box(new Rect(Event.current.mousePosition.x + 20f, Event.current.mousePosition.y, _size.x, _size.y), _tooltip, _style);
+            }
+
+            if (_draggingItem)
+            {
+                GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, _iconWidth, _iconHeight), _draggedItem.itemIcon);
+            }
         }
     }
 
     void DrawInventory()
     {
+        Event e = Event.current;
         int i = 0;
         
         for (int y = 0; y < slotsY; y++)
@@ -95,8 +109,14 @@ public class Inventory : MonoBehaviour
                 if (slots[i].itemName != null)
                 {
                     GUI.DrawTexture(slotRect, slots[i].itemIcon);
-                    if(slotRect.Contains(Event.current.mousePosition))
+                    if(slotRect.Contains(e.mousePosition))
                     {
+                        if (e.button == 0 && e.type == EventType.MouseDrag && !_draggingItem)
+                        {
+                            _draggingItem = true;
+                            _draggedItem = slots[i];
+                            inventory[i] = new Item();
+                        }
                         _showTooltip = true;
                         _tooltip = CreateTooltip(slots[i]);
                     }
