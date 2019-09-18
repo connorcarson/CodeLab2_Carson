@@ -558,7 +558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aeba7766aa6e4343b982447ebb8355e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
 --- !u!4 &717908555
 Transform:
   m_ObjectHideFlags: 0
@@ -628,8 +627,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -810,8 +807,6 @@ MonoBehaviour:
   slotsX: 5
   slotsY: 4
   slotSkin: {fileID: 11400000, guid: 58cf85a2061144bcb886e871d6c7f692, type: 2}
-  inventory: []
-  slots: []
 --- !u!4 &1744893912
 Transform:
   m_ObjectHideFlags: 0
@@ -879,7 +874,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1007,8 +1002,6 @@ MonoBehaviour:
   slotsX: 5
   slotsY: 4
   slotSkin: {fileID: 11400000, guid: 58cf85a2061144bcb886e871d6c7f692, type: 2}
-  inventory: []
-  slots: []
 --- !u!1001 &7783916395369637964
 PrefabInstance:
   m_ObjectHideFlags: 0

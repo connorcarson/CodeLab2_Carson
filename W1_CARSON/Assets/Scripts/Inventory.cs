@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     private bool _draggingItem;
     private string _tooltip;
     private Item _draggedItem;
-
+/*
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour
             //remove the define Item
             Debug.Log("delete!");
             RemoveItem(2);
-        }*/
+        }*/ /*
     }
     
     private void OnGUI()
@@ -100,7 +100,7 @@ public class Inventory : MonoBehaviour
             if (_draggingItem)
             {
                 //draw the icon of that item at the position of our mouse according to the size of the original icon
-                GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, _iconWidth, _iconHeight), _draggedItem.itemIcon);
+                GUI.DrawTexture(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, _iconWidth, _iconHeight), _draggedItem.icon);
             }
         }
     }
@@ -125,10 +125,10 @@ public class Inventory : MonoBehaviour
                 slots[i] = inventory[i];
                 
                 //if a slot is NOT empty
-                if (slots[i].itemName != null)
+                if (slots[i].name != null)
                 {
                     //draw the item in that slot
-                    GUI.DrawTexture(slotRect, slots[i].itemIcon);
+                    GUI.DrawTexture(slotRect, slots[i].icon);
                     //if the mouse cursor is within that slot
                     if(slotRect.Contains(e.mousePosition))
                     {
@@ -206,29 +206,29 @@ public class Inventory : MonoBehaviour
             //if the item type is a weapon
             case Item.ItemType.Weapon:
                 //use the following stats/properties in the tooltip
-                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
-                           "<color=#E9E9E9>" + item.itemDescription + 
+                _tooltip = "<color=#E9E9E9><b>" + item.name + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.description + 
                            "\n\nAttack: " + "</color>" + "<color=#DA5151>" + item.itemAttack + "</color>" + 
                            "<color=#E9E9E9>" + "\nDefense: " + "</color>" + "<color=#67AFC6>" + item.itemDefense + "</color>" + 
-                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.value + "</color>";
                 break;
             //if the item type is magical
             case Item.ItemType.Magical:
                 //etc.
-                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
-                           "<color=#E9E9E9>" + item.itemDescription + 
+                _tooltip = "<color=#E9E9E9><b>" + item.name + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.description + 
                            "\n\nAttack: " + "</color>" + "<color=#DA5151>" + item.itemAttack + "</color>" + 
                            "<color=#E9E9E9>" + "\nDefense: " + "</color>" + "<color=#67AFC6>" + item.itemDefense + "</color>" +
                            "<color=#E9E9E9>" + "\nHealth: " + "</color>" + "<color=#7DC062>" + item.itemHealth + "</color>" +
-                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.value + "</color>";
                 break;
             //if the item type is a consumable
             case Item.ItemType.Consumable:
                 //etc.
-                _tooltip = "<color=#E9E9E9><b>" + item.itemName + "</b></color>\n\n" + 
-                           "<color=#E9E9E9>" + item.itemDescription + "</color>" +
+                _tooltip = "<color=#E9E9E9><b>" + item.name + "</b></color>\n\n" + 
+                           "<color=#E9E9E9>" + item.description + "</color>" +
                            "<color=#E9E9E9>" + "\nHealth: " + "</color>" + "<color=#7DC062>" + item.itemHealth + "</color>" +
-                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.itemValue + "</color>";
+                           "<color=#E9E9E9>" + "\nValue: " + "</color>" + "<color=#E0CA6D>" + item.value + "</color>";
                 break;
             default:
                 break;
@@ -242,13 +242,13 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventory.Count; i++)
         {
             //when you find an empty element
-            if (inventory[i].itemName == null)
+            if (inventory[i].name == null)
             {
                 //loop through every item in our database
                 for (int j = 0; j < _database.itemList.Count; j++)
                 {
                     //when you find the item in our database whose id matches the id defined by our parameter
-                    if (_database.itemList[j].itemID == id)
+                    if (_database.itemList[j].id == id)
                     {
                         //add that item into the empty slot
                         inventory[i] = _database.itemList[j];   
@@ -265,7 +265,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventory.Count; i++)
         {
             //when you find the item in our inventory whose id matches the id defined by our parameter
-            if (inventory[i].itemID == id)
+            if (inventory[i].id == id)
             {
                 //replace that item with an empty item constructor
                 inventory[i] = new Item();
@@ -278,11 +278,11 @@ public class Inventory : MonoBehaviour
     {
         //this is an example of how this function could be used to different affect if we had a Stats class (or something similar) that was affected
         //by different kinds of items
-        switch (item.itemID)
+        switch (item.id)
         {
             case 4:
-                /*PlayerStats.IncreaseStat(3, 15, 50f)*/
-                Debug.Log("Used consumable: " + item.itemName);
+                /*PlayerStats.IncreaseStat(3, 15, 50f)*//*
+                Debug.Log("Used consumable: " + item.name);
                 break;
             default:
                 break;
@@ -303,7 +303,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventory.Count; i++)
         {
             //if the id of an item matches the id defined by our parameter than result is true
-            result = inventory[i].itemID == id;
+            result = inventory[i].id == id;
             if (result)
             {
                 break;
@@ -311,5 +311,5 @@ public class Inventory : MonoBehaviour
         }
         return result;
     }
-
+*/
 }
