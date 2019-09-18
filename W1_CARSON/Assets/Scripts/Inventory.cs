@@ -24,10 +24,20 @@ public class Inventory : MonoBehaviour
     private bool _draggingItem;
     private string _tooltip;
     private Item _draggedItem;
-/*
-    // Start is called before the first frame update
+
+
+    // We don't need a bunch of "empty" items in the inventory!  We could just draw whatever items we have,
+    // and empty spots when we run out of space.
     void Start()
     {
+        _database = GameObject.FindGameObjectWithTag("ItemDatabase").GetComponent<ItemDatabase>();
+        
+        AddItem(1);
+        AddItem(2);
+        AddItem(4);
+        AddItem(3);
+        
+        /*
         //for the grid defined by the values slotsX and slotsY
         for (int i = 0; i < (slotsX * slotsY); i++)
         {
@@ -38,13 +48,10 @@ public class Inventory : MonoBehaviour
         }
         
         //get our reference to our Item database
-        _database = GameObject.FindGameObjectWithTag("ItemDatabase").GetComponent<ItemDatabase>();
         
+        */
         //Add the following items to our inventory from the start
-        AddItem(1);
-        AddItem(2);
-        AddItem(4);
-        AddItem(3);
+
     }
 
     // Update is called once per frame
@@ -58,12 +65,12 @@ public class Inventory : MonoBehaviour
         }
 
         //if we've pressed the "R" button
-        /*if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         { 
             //remove the define Item
             Debug.Log("delete!");
             RemoveItem(2);
-        }*/ /*
+        }
     }
     
     private void OnGUI()
@@ -141,7 +148,7 @@ public class Inventory : MonoBehaviour
                             //set the dragged item to the item we clicked on
                             _draggedItem = slots[i];
                             //put an empty item constructor in the slot we've just emptied
-                            inventory[i] = new Item();
+                            inventory[i] = null;
                         }
                         //or if the left mouse button is released or clicked AND we're already dragging an item
                         if(e.type == EventType.MouseUp && _draggingItem)
@@ -157,7 +164,8 @@ public class Inventory : MonoBehaviour
                         if (e.isMouse && e.type == EventType.MouseDown && e.button == 1)
                         {
                             //and the item in the slot is a consumable item
-                            if (slots[i].itemType == Item.ItemType.Consumable)
+                            // TODO: explain this
+                            if (slots[i].GetType().IsAssignableFrom(typeof(Consumable)))
                             {
                                 //use that item
                                 UseItem(slots[i], i, true);
@@ -199,8 +207,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    
+    // Items should create their tooltip!  Let's move this functionality into the Item class(es).
     string CreateTooltip(Item item)
     {
+        /*
         switch (item.itemType)
         {   
             //if the item type is a weapon
@@ -234,6 +245,7 @@ public class Inventory : MonoBehaviour
                 break;
         }
         return _tooltip;
+        */
     }
 
     void AddItem(int id)
@@ -242,7 +254,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < inventory.Count; i++)
         {
             //when you find an empty element
-            if (inventory[i].name == null)
+            if (inventory[i] == null)
             {
                 //loop through every item in our database
                 for (int j = 0; j < _database.itemList.Count; j++)
@@ -251,7 +263,7 @@ public class Inventory : MonoBehaviour
                     if (_database.itemList[j].id == id)
                     {
                         //add that item into the empty slot
-                        inventory[i] = _database.itemList[j];   
+                        inventory[i] = new _database.itemList[j];   
                     }
                 }
                 break;
