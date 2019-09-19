@@ -87,6 +87,34 @@ public class MatchManagerScript : MonoBehaviour {
 		return matchLength;
 	}
 
+	private int _GetVerticalMatchLength(int x, int y) {
+		int matchLength = 1;
+
+		GameObject first = _gameManager.gridArray[x, y];
+
+		if (first != null) {
+			SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+
+			for (int i = y + 1; i < _gameManager.gridHeight; i++) {
+				GameObject other = _gameManager.gridArray[x, i];
+
+				if (other != null) {
+					SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+
+					if (sr1.sprite == sr2.sprite) {
+						matchLength++;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+
+		return matchLength;
+	}
+
 	public virtual int RemoveMatches(){
 		int numRemoved = 0;
 
@@ -105,6 +133,25 @@ public class MatchManagerScript : MonoBehaviour {
 							_gameManager.gridArray[i, y] = null;
 							numRemoved++;
 						}
+					}
+				}
+
+				if (y < _gameManager.gridHeight - 2)
+				{
+
+					int verticalMatchLength = _GetVerticalMatchLength(x, y);
+
+					if (verticalMatchLength > 2)
+					{
+						for (int i = y; i < y + verticalMatchLength; i++)
+						{
+							GameObject token = _gameManager.gridArray[x, i];
+							Destroy(token);
+
+							_gameManager.gridArray[x, i] = null;
+							numRemoved++;
+						}
+						
 					}
 				}
 			}
