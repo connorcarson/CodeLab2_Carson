@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -80,6 +81,11 @@ public class GameManagerScript : MonoBehaviour
 			if(!moveTokenManager.MoveTokensToFillEmptySpaces()){
 				repopulateManager.AddNewTokensToRepopulateGrid();
 			}
+		}
+
+		if (Input.GetKey(KeyCode.R))
+		{
+			SceneManager.LoadScene(0);
 		}
 
 		if (MovesLeft <= 0)
