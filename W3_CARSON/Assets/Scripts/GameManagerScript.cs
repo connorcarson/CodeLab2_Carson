@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
 {
 
+	public bool playHasBegun;
 	public int movesLeft;
 	public int score;
-	public bool playHasBegun;
-
 	public int gridWidth = 8;
 	public int gridHeight = 8;
 	public float tokenSize = 1;
+	public TextMeshProUGUI movesUI;
+	public TextMeshProUGUI scoreUI;
 
 	protected MatchManagerScript matchManager;
 	protected InputManagerScript inputManager;
@@ -23,19 +25,27 @@ public class GameManagerScript : MonoBehaviour
 
 	public int MovesLeft
 	{
-		get { return movesLeft; }
+		get
+		{
+			return movesLeft;
+		}
 		set
 		{
 			movesLeft = value;
+			//movesUI.text = "Moves Left: " + movesLeft;
 		}
 	}
 
 	public int Score
 	{
-		get { return score; }
+		get
+		{
+			return score;
+		}
 		set
 		{
 			score = value;
+			//scoreUI.text = "Score: " + score;
 		}
 	}
 
@@ -50,6 +60,11 @@ public class GameManagerScript : MonoBehaviour
 	}
 
 	public virtual void Update(){
+		//update moves left
+		movesUI.text = "Moves Left: " + MovesLeft;
+		//update score
+		scoreUI.text = "Score: " + Score;
+		
 		if(!GridHasEmpty()){
 			if(matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
