@@ -195,6 +195,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7694f8aee63b24386be5e05456a9c346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  selectedColor:
+    serializedVersion: 2
+    rgba: 2600513279
+  indicatedColor:
+    serializedVersion: 2
+    rgba: 2098414959
 --- !u!114 &636344700
 MonoBehaviour:
   m_ObjectHideFlags: 0
