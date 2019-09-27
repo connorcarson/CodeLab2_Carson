@@ -12,6 +12,8 @@ public class GameManagerScript : MonoBehaviour
 	public float tokenSize = 1;
 	public TextMeshProUGUI movesUI;
 	public TextMeshProUGUI scoreUI;
+	public TextMeshProUGUI finalScore;
+	public GameObject gameOverPanel;
 
 	protected MatchManagerScript matchManager;
 	protected InputManagerScript inputManager;
@@ -79,6 +81,11 @@ public class GameManagerScript : MonoBehaviour
 				repopulateManager.AddNewTokensToRepopulateGrid();
 			}
 		}
+
+		if (MovesLeft <= 0)
+		{
+			GameOver();
+		}
 	}
 
 	void MakeGrid() {
@@ -127,5 +134,11 @@ public class GameManagerScript : MonoBehaviour
 			            Quaternion.identity) as GameObject;
 		token.transform.parent = parent.transform;
 		gridArray[x, y] = token;
+	}
+
+	public void GameOver()
+	{
+		gameOverPanel.SetActive(true);
+		finalScore.text = "Score: " + Score;
 	}
 }
