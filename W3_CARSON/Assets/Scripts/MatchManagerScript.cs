@@ -129,9 +129,11 @@ public class MatchManagerScript : MonoBehaviour {
 						for(int i = x; i < x + horizonMatchLength; i++){
 							GameObject token = _gameManager.gridArray[i, y]; 
 							Destroy(token);
+							if (_gameManager.playHasBegun) {
+								_gameManager.score++;
+							}
 
 							_gameManager.gridArray[i, y] = null;
-							numRemoved++;
 						}
 					}
 				}
@@ -147,6 +149,9 @@ public class MatchManagerScript : MonoBehaviour {
 						{
 							GameObject token = _gameManager.gridArray[x, i];
 							Destroy(token);
+							if (_gameManager.playHasBegun) {
+								_gameManager.score++;
+							}
 
 							_gameManager.gridArray[x, i] = null;
 							numRemoved++;

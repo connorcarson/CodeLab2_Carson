@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 
-public class GameManagerScript : MonoBehaviour {
+public class GameManagerScript : MonoBehaviour
+{
+
+	public int movesLeft;
+	public int score;
+	public bool playHasBegun;
 
 	public int gridWidth = 8;
 	public int gridHeight = 8;
@@ -15,6 +20,24 @@ public class GameManagerScript : MonoBehaviour {
 	public  GameObject[,] gridArray;
 	protected Object[] tokenTypes;
 	GameObject selected;
+
+	public int MovesLeft
+	{
+		get { return movesLeft; }
+		set
+		{
+			movesLeft = value;
+		}
+	}
+
+	public int Score
+	{
+		get { return score; }
+		set
+		{
+			score = value;
+		}
+	}
 
 	public virtual void Start () {
 		tokenTypes = (Object[])Resources.LoadAll("Tokens/");

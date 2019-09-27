@@ -39,6 +39,8 @@ public class InputManagerScript : MonoBehaviour {
 						&& (int)pos1.x != (int)pos2.x && (int)pos1.y != (int)pos2.y){
 						//then logically, it must be a "knight's move" and you should move those tokens!
 						_moveManager.SetupTokenExchange(_selected, pos1, tokenCollider.gameObject, pos2, true);
+						_gameManager.movesLeft--;
+						_gameManager.playHasBegun = true;
 					}
 
 					_selected = null;
