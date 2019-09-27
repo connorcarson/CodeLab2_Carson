@@ -24,7 +24,7 @@ public class InputManagerScript : MonoBehaviour {
 					Vector2 pos1 = _gameManager.GetPositionOfTokenInGrid(_selected);
 					Vector2 pos2 = _gameManager.GetPositionOfTokenInGrid(collider.gameObject);
 
-					if(Mathf.Abs((pos1.x - pos2.x) + (pos1.y - pos2.y)) == 3){
+					if((Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.y - pos2.y)) == 3){
 						_moveManager.SetupTokenExchange(_selected, pos1, collider.gameObject, pos2, true);
 					}
 
