@@ -52,15 +52,21 @@ public class BlackJackManager : MonoBehaviour {
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
 		
+		//for each card in a given hand
 		foreach(DeckOfCards.Card handCard in hand){
+			//add the cards values together assuming we HAVE NOT busted
 			handValue += handCard.GetCardHighValue(false);
 		}
-
+		
+		//if we do bust
 		if (handValue > 21)
 		{
+			//reset the hands value
 			handValue = 0;
 			
+			//for each card in the same given hand
 			foreach(DeckOfCards.Card handCard in hand){
+				//add the cards values together assuming we HAVE busted
 				handValue += handCard.GetCardHighValue(true);
 			}
 		}
