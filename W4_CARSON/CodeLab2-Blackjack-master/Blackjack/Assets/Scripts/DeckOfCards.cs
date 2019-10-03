@@ -47,17 +47,20 @@ public class DeckOfCards : MonoBehaviour {
 			return "The " + cardNum + " of " + suit;
 		}
 
-		public int GetCardHighValue(bool bust){
+		public int GetCardValue(bool overTwentyOne){
 			int val;
 
 			switch(cardNum){
 			case Type.A:
-				if (!bust)
+				//if we HAVE NOT busted yet
+				if (!overTwentyOne)
 				{
+					//the ace's value is 11
 					val = 11;
 				}
-				else
+				else //if we HAVE busted
 				{
+					//the ace's value is 1
 					val = 1;
 				}
 				break;

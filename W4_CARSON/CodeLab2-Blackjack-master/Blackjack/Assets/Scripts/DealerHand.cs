@@ -23,7 +23,7 @@ public class DealerHand : BlackJackHand {
 
 		if(hand.Count > 1){
 			if(!reveal){
-				handVals = hand[1].GetCardHighValue(false);
+				handVals = hand[1].GetCardValue(false);
 
 				total.text = "Dealer: " + handVals + " + ???";
 			} else {

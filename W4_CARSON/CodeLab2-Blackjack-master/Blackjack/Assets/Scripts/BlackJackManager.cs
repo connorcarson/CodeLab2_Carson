@@ -55,7 +55,7 @@ public class BlackJackManager : MonoBehaviour {
 		//for each card in a given hand
 		foreach(DeckOfCards.Card handCard in hand){
 			//add the cards values together assuming we HAVE NOT busted
-			handValue += handCard.GetCardHighValue(false);
+			handValue += handCard.GetCardValue(false);
 		}
 		
 		//if we do bust
@@ -67,7 +67,7 @@ public class BlackJackManager : MonoBehaviour {
 			//for each card in the same given hand
 			foreach(DeckOfCards.Card handCard in hand){
 				//add the cards values together assuming we HAVE busted
-				handValue += handCard.GetCardHighValue(true);
+				handValue += handCard.GetCardValue(true);
 			}
 		}
 
