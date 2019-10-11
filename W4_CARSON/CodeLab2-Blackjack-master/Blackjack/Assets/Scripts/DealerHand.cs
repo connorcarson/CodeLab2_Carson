@@ -21,9 +21,9 @@ public class DealerHand : BlackJackHand {
 		
 	protected override void ShowValue(){
 
-		if(hand.Count > 1){
+		if(hand1.Count > 1){
 			if(!reveal){
-				handVals = hand[1].GetCardValue();
+				handVals = hand1[1].GetCardValue();
 
 				total.text = "Dealer: " + handVals + " + ???";
 			} else {
@@ -62,7 +62,8 @@ public class DealerHand : BlackJackHand {
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = null;
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = true;
 
-		ShowCard(hand[0], cardOne, 0);
+		ShowCard(hand1[0], cardOne, handBase1, 0);
+		ShowCard(hand1[0], cardOne, handBase2, 0);
 
 		ShowValue();
 	}
