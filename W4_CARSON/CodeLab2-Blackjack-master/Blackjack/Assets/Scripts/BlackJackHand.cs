@@ -103,6 +103,8 @@ public class BlackJackHand : MonoBehaviour {
 				Debug.Log("You did not select a viable hand.");
 				break;
 		}
+		newCardObject.GetComponent<Button>().onClick.AddListener(delegate { SelectHandToHit(button); });
+		handButtons.Add(newCardObject.GetComponent<Button>());
 		cards.Add(newCardObject);
 	}
 
