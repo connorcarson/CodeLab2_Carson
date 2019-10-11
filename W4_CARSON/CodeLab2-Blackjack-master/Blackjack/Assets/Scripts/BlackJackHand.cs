@@ -15,6 +15,7 @@ public class BlackJackHand : MonoBehaviour {
 	public GameObject newCardObject;
 	public DeckOfCards.Card newCard;
 	public int handVals;
+	
 	private bool placingNewCard;
 	private List<GameObject> cards = new List<GameObject>();
 	
@@ -84,14 +85,16 @@ public class BlackJackHand : MonoBehaviour {
 		if (button.GetComponentsInParent<Transform>()[1].name == "PlayerFirstHand")
 		{
 			Debug.Log("Hand1 is true!");
-			ShowCard(newCard, newCardObject, handBase1, hand1.Count);
+			newCardObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(xOffset + hand1.Count, yOffset);
+			newCardObject.transform.SetParent(handBase1.transform);
 			hand1.Add(newCard);
 		}
 
 		if (button.GetComponentsInParent<Transform>()[1].name == "PlayerSecondHand")
 		{
 			Debug.Log("Hand1 is true!");
-			ShowCard(newCard, newCardObject, handBase2, hand2.Count);
+			newCardObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(xOffset + hand2.Count, yOffset);
+			newCardObject.transform.SetParent(handBase2.transform);
 			hand2.Add(newCard);
 		}
 		ShowValue();
