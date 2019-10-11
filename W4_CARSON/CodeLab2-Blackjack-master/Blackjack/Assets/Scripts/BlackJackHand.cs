@@ -20,15 +20,17 @@ public class BlackJackHand : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SetupHand(hand1, handBase1);
-		SetupHand(hand2, handBase2);
+		SetupHand();
 	}
 
-	protected virtual void SetupHand(List<DeckOfCards.Card> hand, GameObject handBase){
+	protected virtual void SetupHand(){
 		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
-		hand = new List<DeckOfCards.Card>();
-		HitMe(hand, handBase);
-		HitMe(hand, handBase);
+		hand1 = new List<DeckOfCards.Card>();
+		hand2 = new List<DeckOfCards.Card>();
+		HitMe(hand1, handBase1);
+		HitMe(hand1, handBase1);
+		HitMe(hand2, handBase2);
+		HitMe(hand2, handBase2);
 	}
 	
 	// Update is called once per frame

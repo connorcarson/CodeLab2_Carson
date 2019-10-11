@@ -11,10 +11,8 @@ public class DealerHand : BlackJackHand {
 	protected override void SetupHand(){
 		base.SetupHand();
 
-		GameObject cardOne = transform.GetChild(0).gameObject;
-		cardOne.GetComponentInChildren<Text>().text = "";
-		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
-		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
+		HideCard(handBase1);
+		HideCard(handBase2);
 
 		reveal = false;
 	}
@@ -57,14 +55,25 @@ public class DealerHand : BlackJackHand {
 	public void RevealCard(){
 		reveal = true;
 
-		GameObject cardOne = transform.GetChild(0).gameObject;
+		GameObject cardOneHandOne = handBase1.transform.GetChild(0).gameObject;
+		GameObject cardOneHandTwo = handBase2.transform.GetChild(0).gameObject;
 
-		cardOne.GetComponentsInChildren<Image>()[0].sprite = null;
-		cardOne.GetComponentsInChildren<Image>()[1].enabled = true;
+		cardOneHandOne.GetComponentsInChildren<Image>()[0].sprite = null;
+		cardOneHandOne.GetComponentsInChildren<Image>()[1].enabled = true;
+		cardOneHandTwo.GetComponentsInChildren<Image>()[0].sprite = null;
+		cardOneHandTwo.GetComponentsInChildren<Image>()[1].enabled = true;
 
-		ShowCard(hand1[0], cardOne, handBase1, 0);
-		ShowCard(hand1[0], cardOne, handBase2, 0);
+		ShowCard(hand1[0], cardOneHandOne, handBase1, 0);
+		ShowCard(hand1[0], cardOneHandTwo, handBase2, 0);
 
 		ShowValue();
+	}
+
+	public void HideCard(GameObject handBase)
+	{
+		GameObject cardOne = handBase.transform.GetChild(0).gameObject;
+		cardOne.GetComponentInChildren<Text>().text = "";
+		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
+		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
 	}
 }
