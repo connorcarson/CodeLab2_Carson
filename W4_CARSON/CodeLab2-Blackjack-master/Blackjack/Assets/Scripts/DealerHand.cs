@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DealerHand : BlackJackHand {
 
@@ -17,17 +18,17 @@ public class DealerHand : BlackJackHand {
 		reveal = false;
 	}
 		
-	protected override void ShowValue(){
+	protected override void ShowValue(List<DeckOfCards.Card> currentHand, Text currentTotal){
 
 		if(hand1.Count > 1){
 			if(!reveal){
 				handVals = hand1[1].GetCardValue();
 
-				total.text = "Dealer: " + handVals + " + ???";
+				currentTotal.text = "Dealer: " + handVals + " + ???";
 			} else {
-				handVals = GetHandValue();
+				handVals = GetHandValue(currentHand);
 
-				total.text = "Dealer: " + handVals;
+				currentTotal.text = "Dealer: " + handVals;
 
 				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
 
@@ -66,7 +67,8 @@ public class DealerHand : BlackJackHand {
 		ShowCard(hand1[0], cardOneHandOne, handBase1, 0);
 		ShowCard(hand1[0], cardOneHandTwo, handBase2, 0);
 
-		ShowValue();
+		ShowValue(hand1, total1);
+		ShowValue(hand2, total2);
 	}
 
 	public void HideCard(GameObject handBase)
