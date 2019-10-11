@@ -18,28 +18,29 @@ public class DealerHand : BlackJackHand {
 		reveal = false;
 	}
 		
-	protected override void ShowValue(List<DeckOfCards.Card> currentHand, Text currentTotal){
+	protected override void ShowValue(List<DeckOfCards.Card> currentHand, Transform handBase, Text currentTotal, int currentHandVal){
 
-		if(hand1.Count > 1){
+		if(currentHand.Count > 1){
 			if(!reveal){
-				handVals = hand1[1].GetCardValue();
+				currentHandVal = currentHand[1].GetCardValue();
 
-				currentTotal.text = "Dealer: " + handVals + " + ???";
+				currentTotal.text = "Dealer: " + currentHandVal + " + ???";
 			} else {
-				handVals = GetHandValue(currentHand);
+				currentHandVal = GetHandValue(currentHand);
 
-				currentTotal.text = "Dealer: " + handVals;
+				currentTotal.text = "Dealer: " + currentHandVal;
 
 				BlackJackManager manager = GameObject.Find("BlackJackManager").GetComponent<BlackJackManager>();
 
-				if(handVals > 21){
+				if(currentHandVal > 21){
 					manager.DealerBusted();
-				} else if(!DealStay(handVals)){
-					Invoke("DealMeIn", 1);
+				} else if(!DealStay(currentHandVal))
+				{
+					DealMeIn(currentHand, handBase, currentTotal, currentHandVal);
 				} else {
-					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
+					BlackJackHand playerHand = GameObject.Find("PlayerHandValue1").GetComponent<BlackJackHand>();
 
-					if(handVals < playerHand.handVals){
+					if(currentHandVal < playerHand.handVal1 || currentHandVal < playerHand.handVal2){
 						manager.PlayerWin();
 					} else {
 						manager.PlayerLose();
@@ -49,6 +50,11 @@ public class DealerHand : BlackJackHand {
 		}
 	}
 
+	protected override void SelectHandToHit(Button button)
+	{
+		return;
+	}
+	
 	protected virtual bool DealStay(int handVal){
 		return handVal > 17;
 	}
@@ -67,13 +73,13 @@ public class DealerHand : BlackJackHand {
 		ShowCard(hand1[0], cardOneHandOne, handBase1, 0);
 		ShowCard(hand1[0], cardOneHandTwo, handBase2, 0);
 
-		ShowValue(hand1, total1);
-		ShowValue(hand2, total2);
+		ShowValue(hand1, handBase1, total1, handVal1);
+		ShowValue(hand2, handBase2, total2, handVal2);
 	}
 
-	public void HideCard(GameObject handBase)
+	public void HideCard(Transform handBase)
 	{
-		GameObject cardOne = handBase.transform.GetChild(0).gameObject;
+		GameObject cardOne = handBase.GetChild(0).gameObject;
 		cardOne.GetComponentInChildren<Text>().text = "";
 		cardOne.GetComponentsInChildren<Image>()[0].sprite = cardBack;
 		cardOne.GetComponentsInChildren<Image>()[1].enabled = false;
