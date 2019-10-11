@@ -12,8 +12,11 @@ public class BlackJackHand : MonoBehaviour {
 	public GameObject viewingBase;
 	public GameObject handBase1;
 	public GameObject handBase2;
+	public GameObject newCardObject;
+	public DeckOfCards.Card newCard;
 	public int handVals;
-	public Button hitMe;
+	private bool placingNewCard;
+	private List<GameObject> cards = new List<GameObject>();
 	
 	protected DeckOfCards deck;
 	protected List<DeckOfCards.Card> hand1;
@@ -37,7 +40,15 @@ public class BlackJackHand : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (placingNewCard)
+		{
+			foreach (var card in cards)
+			{
+				Button button = card.GetComponent<Button>();
+				button.interactable = true;
+				button.onClick.AddListener(delegate { SelectHandToHit(button); });
+			}
+		}
 	}
 
 	public void DealMeIn(List<DeckOfCards.Card> currentHand, GameObject handBase){
@@ -45,6 +56,7 @@ public class BlackJackHand : MonoBehaviour {
 			DeckOfCards.Card card = deck.DrawCard();
 
 			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
+			cards.Add(cardObj);
 
 			ShowCard(card, cardObj, handBase, currentHand.Count);
 
@@ -57,12 +69,33 @@ public class BlackJackHand : MonoBehaviour {
 	public void HitMe()
 	{
 		if(!stay){
-			DeckOfCards.Card card = deck.DrawCard();
+			newCard = deck.DrawCard();
 
-			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
+			newCardObject = Instantiate(Resources.Load("prefab/Card")) as GameObject;
 
-			ShowCard(card, cardObj, viewingBase, 1);
+			ShowCard(newCard, newCardObject, viewingBase, 1);
+
+			placingNewCard = true;
 		}
+	}
+
+	void SelectHandToHit(Button button)
+	{
+		if (button.GetComponentsInParent<Transform>()[1].name == "PlayerFirstHand")
+		{
+			Debug.Log("Hand1 is true!");
+			ShowCard(newCard, newCardObject, handBase1, hand1.Count);
+			hand1.Add(newCard);
+		}
+
+		if (button.GetComponentsInParent<Transform>()[1].name == "PlayerSecondHand")
+		{
+			Debug.Log("Hand1 is true!");
+			ShowCard(newCard, newCardObject, handBase2, hand2.Count);
+			hand2.Add(newCard);
+		}
+		ShowValue();
+		placingNewCard = false;
 	}
 
 	protected void ShowCard(DeckOfCards.Card card, GameObject cardObj, GameObject handBase, int pos){
