@@ -34,7 +34,7 @@ public class DealerHand : BlackJackHand {
 				if(handVals > 21){
 					manager.DealerBusted();
 				} else if(!DealStay(handVals)){
-					Invoke("HitMe", 1);
+					Invoke("DealMeIn", 1);
 				} else {
 					BlackJackHand playerHand = GameObject.Find("Player Hand Value").GetComponent<BlackJackHand>();
 

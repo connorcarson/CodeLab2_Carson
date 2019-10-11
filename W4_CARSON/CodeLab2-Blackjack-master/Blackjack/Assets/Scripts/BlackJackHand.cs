@@ -9,10 +9,12 @@ public class BlackJackHand : MonoBehaviour {
 	public Text total;
 	public float xOffset;
 	public float yOffset;
+	public GameObject viewingBase;
 	public GameObject handBase1;
 	public GameObject handBase2;
 	public int handVals;
-
+	public Button hitMe;
+	
 	protected DeckOfCards deck;
 	protected List<DeckOfCards.Card> hand1;
 	protected List<DeckOfCards.Card> hand2;
@@ -27,17 +29,18 @@ public class BlackJackHand : MonoBehaviour {
 		deck = GameObject.Find("Deck").GetComponent<DeckOfCards>();
 		hand1 = new List<DeckOfCards.Card>();
 		hand2 = new List<DeckOfCards.Card>();
-		HitMe(hand1, handBase1);
-		HitMe(hand1, handBase1);
-		HitMe(hand2, handBase2);
-		HitMe(hand2, handBase2);
+		DealMeIn(hand1, handBase1);
+		DealMeIn(hand1, handBase1);
+		DealMeIn(hand2, handBase2);
+		DealMeIn(hand2, handBase2);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 	}
 
-	public void HitMe(List<DeckOfCards.Card> currentHand, GameObject handBase){
+	public void DealMeIn(List<DeckOfCards.Card> currentHand, GameObject handBase){
 		if(!stay){
 			DeckOfCards.Card card = deck.DrawCard();
 
@@ -48,6 +51,17 @@ public class BlackJackHand : MonoBehaviour {
 			currentHand.Add(card);
 
 			ShowValue();
+		}
+	}
+
+	public void HitMe()
+	{
+		if(!stay){
+			DeckOfCards.Card card = deck.DrawCard();
+
+			GameObject cardObj = Instantiate(Resources.Load("prefab/Card")) as GameObject;
+
+			ShowCard(card, cardObj, viewingBase, 1);
 		}
 	}
 
