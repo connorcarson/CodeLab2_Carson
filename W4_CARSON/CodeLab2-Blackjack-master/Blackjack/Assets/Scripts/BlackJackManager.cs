@@ -51,24 +51,22 @@ public class BlackJackManager : MonoBehaviour {
 
 	public virtual int GetHandValue(List<DeckOfCards.Card> hand){
 		int handValue = 0;
-		
-		//for each card in a given hand
-		foreach(DeckOfCards.Card handCard in hand){
-			//add the cards values together assuming we HAVE NOT busted
-			handValue += handCard.GetCardValue(false);
-		}
-		
-		//if we do bust
-		if (handValue > 21)
+		int aceCount = 0;
+
+		foreach (var card in hand)
 		{
-			//reset the hands value
-			handValue = 0;
-			
-			//for each card in the same given hand
-			foreach(DeckOfCards.Card handCard in hand){
-				//add the cards values together assuming we HAVE busted
-				handValue += handCard.GetCardValue(true);
+			if (card.cardNum == DeckOfCards.Card.Type.A)
+			{
+				aceCount++;
 			}
+
+			handValue += card.GetCardValue();
+		}
+
+		while (handValue > 21 && aceCount > 0)
+		{
+			aceCount--;
+			handValue -= 10;
 		}
 
 		return handValue;
