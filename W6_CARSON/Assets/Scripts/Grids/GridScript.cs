@@ -9,7 +9,7 @@ public class GridScript : MonoBehaviour {
 	public float spacing;
 	
 	public Material[] mats;
-	public float[]   costs;
+	public float[] costs;
 
 	public Vector3 start = new Vector3(0,0);
 	public Vector3 goal = new Vector3(14,14);
