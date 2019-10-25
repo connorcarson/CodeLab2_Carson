@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SelectCell();
+    }
+
+    public void SelectCell()
+    {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             model.PlacePiece(0, 2);

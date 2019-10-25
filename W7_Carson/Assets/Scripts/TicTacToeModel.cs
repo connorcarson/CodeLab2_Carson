@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class TicTacToeModel : MonoBehaviour
 {
+    public GameObject gamepieceHolder;
+    
     private Cell[,] cells = new Cell[3,3];
     private bool _isXTurn;
-    private bool gamesBegun;
-    
+
     void Start()
     {
         _isXTurn = true;
@@ -26,6 +27,8 @@ public class TicTacToeModel : MonoBehaviour
     public void PlacePiece(int gridX, int gridY)
     {
         cells[gridX, gridY] = new Cell(_isXTurn);
+        var gamepiece = Instantiate(Resources.Load<GameObject>("Prefabs/" + cells[gridX, gridY].gamepiece), gamepieceHolder.transform);
+        gamepiece.transform.position = new Vector3(gridX * 3f, gridY * 3f, 0f);
         _isXTurn = !_isXTurn;
         Debug.Log("|" + cells[0, 2].gamepiece + "|" + cells[1, 2].gamepiece + "|" + cells[2, 2].gamepiece + "|\n|" + 
                       cells[0, 1].gamepiece + "|" + cells[1, 1].gamepiece + "|" + cells[2, 1].gamepiece + "|\n|" + 
