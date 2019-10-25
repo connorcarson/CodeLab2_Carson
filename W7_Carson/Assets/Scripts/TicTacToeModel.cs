@@ -12,9 +12,9 @@ public class TicTacToeModel : MonoBehaviour
         _isXTurn = true;
     }
 
-    public void PlacePiece(int gridX, int gridY, bool isX)
+    public void PlacePiece(int gridX, int gridY)
     {
-        cells[gridX, gridY] = new Cell(isX);
+        cells[gridX, gridY] = new Cell(_isXTurn);
         _isXTurn = !_isXTurn;
     }
 
