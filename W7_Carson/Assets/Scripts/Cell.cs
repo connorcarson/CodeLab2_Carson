@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Cell
 {
     public bool isX;
-    public char gamepiece;
+    public char gamepiece = ' ';
 
     public Cell(bool isX)
     {
