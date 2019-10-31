@@ -13,12 +13,12 @@ building = {
 
 building.__index = building -- failed table lookups on the instances should fallback to the class table, to get methods
 
-function building:makeBuilding(x, y, tileSize)
+function building:makeBuilding(x, tileSize)
 
 
   local self = setmetatable({}, building)
 
-  self:setupBuilding(x, y, tileSize)
+  self:setupBuilding(x, tileSize)
 
   return self
 end
