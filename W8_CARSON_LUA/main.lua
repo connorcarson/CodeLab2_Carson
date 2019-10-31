@@ -15,7 +15,7 @@ function love.load()
   -- One meter is 32px in physics engine
   love.physics.setMeter(15)
   -- Create a world with standard gravity
-  world = love.physics.newWorld(0, 9.81*15, true)
+  world = love.physics.newWorld(0, 9.81*25, true)
 
   background=love.graphics.newImage('media/iPadMenu_atlas0.png')
   --Make nearest neighbor, so pixels are sharp
@@ -68,6 +68,7 @@ function love.load()
   playerImg = love.graphics.newImage("media/player2.png")
   -- Create a Body for the player.
   body = love.physics.newBody(world, 400, 100, "dynamic")
+  
   -- Create a shape for the body.
   player_box = love.physics.newRectangleShape(15, 15, 30, 30)
   -- Create fixture between body and shape
@@ -164,7 +165,7 @@ end
 
 function love.keypressed( key, isrepeat )
   if key == "up" and onGround then
-    body:applyLinearImpulse(0, -500)
+    body:applyLinearImpulse(0, -800)
     currentAnim = jumpAnim
     currentAnim:gotoFrame(1)
     time = love.timer.getTime( )
