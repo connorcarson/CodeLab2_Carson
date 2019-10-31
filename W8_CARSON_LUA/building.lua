@@ -40,9 +40,9 @@ function building:setupBuilding(x, tileSize)
   fixture:setUserData("Building")
 end
 
-function building:update(body, dt, other_building)
+function building:update(body, dt, other_building, screen_width)
 
-  if self.x + self.width/2 * self.tileSize < body:getX() then
+  if self.x + self.width/2 * self.tileSize < body:getX() - screen_width/2 then
       self:setupBuilding(
           other_building.x + other_building.width  * self.tileSize + 150, 
           16)

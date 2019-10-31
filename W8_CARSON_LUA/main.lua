@@ -74,7 +74,7 @@ function love.load()
   fixture = love.physics.newFixture(body, player_box)
   fixture:setUserData("Player") -- Set a string userdata
   
-  -- Calculate the mass of the body based on attatched shapes.
+  -- Calculate the mass of the body based on attached shapes.
   -- This gives realistic simulations.
   body:setMassData(player_box:computeMass( 1 ))
   body:setFixedRotation(true)
@@ -111,8 +111,8 @@ function love.update(dt)
   currentAnim:update(dt)
   world:update(dt)
 
-  building1:update(body, dt, building2)
-  building2:update(body, dt, building1)
+  building1:update(body, dt, building2, width)
+  building2:update(body, dt, building1, width)
 
   updateTilesetBatch()
 
