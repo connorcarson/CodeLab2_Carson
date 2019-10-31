@@ -116,7 +116,11 @@ function love.update(dt)
   building2:update(body, dt, building1, width)
 
   updateTilesetBatch()
-
+  
+  if(body:getY() > height * 2) then
+      love.load()
+  end
+    
   if(time < love.timer.getTime( ) - 0.25) and currentAnim == jumpAnim then
     currentAnim = inAirAnim
     currentAnim:gotoFrame(1)
