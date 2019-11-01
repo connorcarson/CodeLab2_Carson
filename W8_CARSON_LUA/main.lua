@@ -122,6 +122,8 @@ function love.update(dt)
   --building2:translate(width/2 - body:getX(), dt)
   
   if(body:getY() > height) then
+      love.audio.stop(music)
+      runSound:setLooping(false);
       love.load()
   end
     
