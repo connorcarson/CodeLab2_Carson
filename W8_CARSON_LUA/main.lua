@@ -4,6 +4,7 @@ require 'building'
 tileQuads = {} -- parts of the tileset used for different tiles
 
 local time = 0
+paused = false
 
 function love.load()
   width = 600
@@ -108,8 +109,17 @@ function love.load()
 end
 
 function love.update(dt)
+    if not paused then
+      love.audio.play(music)
+      love.gameUpdate(dt)
+    else
+      love.audio.pause(music)
+      love.audio.pause(runSound);
+    end
+end
 
-  currentAnim:update(dt)
+function love.gameUpdate(dt)
+currentAnim:update(dt)
   world:update(dt)
 
   building1:update(body, dt, building2, width)
@@ -125,6 +135,7 @@ function love.update(dt)
       love.audio.stop(music)
       runSound:setLooping(false);
       love.load()
+      --love.event.quit("restart")
   end
     
   if(time < love.timer.getTime( ) - 0.25) and currentAnim == jumpAnim then
@@ -181,7 +192,10 @@ function love.keypressed( key, isrepeat )
     time = love.timer.getTime( )
   end
   if key == "r" then
-          love.load()
+    love.load()
+  end
+  if key == "p" then
+    paused = not paused
   end
 end
 
