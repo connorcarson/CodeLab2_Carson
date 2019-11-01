@@ -55,7 +55,7 @@ function love.load()
   tilesetBatch = love.graphics.newSpriteBatch(tilesetImage, 1500)
 
   -- Create a Body for the crate.
-  crate_body = love.physics.newBody(world, 770, 200, "dynamic")
+  crate_body = love.physics.newBody(world, 1170, 200, "dynamic")
   crate_box = love.physics.newRectangleShape(9, 9, 18, 18)
   fixture = love.physics.newFixture(crate_body, crate_box)
   fixture:setUserData("Crate") -- Set a string userdata
@@ -127,6 +127,8 @@ currentAnim:update(dt)
 
   updateTilesetBatch()
   
+  updateCrate()
+  
   --attempted to rewrite the way the buildings were being translated
   --building1:translate(width/2 - body:getX(), dt)
   --building2:translate(width/2 - body:getX(), dt)
@@ -173,6 +175,13 @@ function love.draw()
   love.graphics.draw(tilesetBatch, 0, 0, 0, 1, 1)
 end
 
+function updateCrate()
+  if crate_body:getX() < body:getX() - width/2 or crate_body:getY() > height then
+      crate_body:setX(crate_body:getX() + (love.math.random( ) * 2000) + 500)
+      crate_body:setY(200)
+  end
+end
+
 function updateTilesetBatch()
   tilesetBatch:clear()
 
@@ -192,6 +201,8 @@ function love.keypressed( key, isrepeat )
     time = love.timer.getTime( )
   end
   if key == "r" then
+    love.audio.stop(music)
+    runSound:setLooping(false);
     love.load()
   end
   if key == "p" then
