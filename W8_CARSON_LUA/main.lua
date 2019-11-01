@@ -174,6 +174,9 @@ function love.keypressed( key, isrepeat )
     currentAnim:gotoFrame(1)
     time = love.timer.getTime( )
   end
+  if key == "r" then
+          love.load()
+  end
 end
 
 -- This is called every time a collision begin.
