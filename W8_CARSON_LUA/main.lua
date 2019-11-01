@@ -117,7 +117,11 @@ function love.update(dt)
 
   updateTilesetBatch()
   
-  if(body:getY() > height * 2) then
+  --attempted to rewrite the way the buildings were being translated
+  --building1:translate(width/2 - body:getX(), dt)
+  --building2:translate(width/2 - body:getX(), dt)
+  
+  if(body:getY() > height) then
       love.load()
   end
     
@@ -143,9 +147,9 @@ function love.draw()
   love.graphics.draw(background, 0, 0, 0, 1.56, 1.56, 0, 200)
   love.graphics.setColor(255, 255, 255)
   love.graphics.print(text, 10, 10)
-
+  
   love.graphics.translate(width/2 - body:getX(), 0)
-   
+  
   currentAnim:draw(playerImg, body:getX(), body:getY(), body:getAngle())
 
   --love.graphics.setColor(255, 0, 0)

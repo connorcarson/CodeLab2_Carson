@@ -29,7 +29,7 @@ function building:setupBuilding(x, tileSize)
   self.x = x
   self.y = 300
 
-  self.width  = math.ceil((love.math.random( ) * 10) + 20)
+  self.width  = math.ceil((love.math.random( ) * 15) + 20)
   self.height = math.ceil(5 + love.math.random( ) * 7)
   --self.height = 7
   self.body = love.physics.newBody(world, 0, 0, "static")
@@ -48,6 +48,11 @@ function building:update(body, dt, other_building, screen_width)
           16)
   end
 end
+
+--attempted to write a function that translates the buildings
+--[[]function building:translate(velocity, dt)
+    self.x = self.x + (velocity * dt)
+end--]]
 
 function building:draw(tilesetBatch, tileQuads)
   x1, y1 = self.shape:getPoints()
