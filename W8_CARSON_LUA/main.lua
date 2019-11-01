@@ -5,6 +5,7 @@ tileQuads = {} -- parts of the tileset used for different tiles
 
 local time = 0
 paused = false
+multiplier = 0
 
 function love.load()
   width = 600
@@ -152,7 +153,7 @@ currentAnim:update(dt)
 
   if(currentAnim == runAnim) then
     --print("ON GROUND")
-    body:applyLinearImpulse(800 * dt, 0)
+    body:applyLinearImpulse(1000 * dt, 0)
   else
     body:applyLinearImpulse(500 * dt, 0)
   end
@@ -177,9 +178,10 @@ end
 
 function updateCrate()
   if crate_body:getX() < body:getX() - width/2 or crate_body:getY() > height then
-      crate_body:setX(crate_body:getX() + (love.math.random( ) * 2000) + 500)
-      crate_body:setY(200)
+    crate_body:setX(body:getX() + ((love.math.random( ) * width) + 600))
+    crate_body:setY(200)
   end
+  crate_body:setAwake(true)
 end
 
 function updateTilesetBatch()
@@ -237,7 +239,7 @@ function endContact(bodyA, bodyB, coll)
   local aData=bodyA:getUserData()
   local bData=bodyB:getUserData()
   text = "Collision ended: " .. aData .. " and " .. bData
-
+  
   if(aData == "Player" or bData == "Player") then
     runSound:stop();
   end
