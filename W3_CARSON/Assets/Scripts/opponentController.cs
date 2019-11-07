@@ -21,7 +21,8 @@ public class opponentController : MonoBehaviour
 
     private void FindPossibleMatches()
     {
-        List<Vector2[]> possibleMoves = new List<Vector2[]>();
+        List<Vector2[]> horizontalMatches = new List<Vector2[]>();
+        List<Vector2[]> verticalMatches = new List<Vector2[]>();
         
         for (int x = 0; x < _gameManager.gridWidth; x++)
         {
@@ -31,18 +32,28 @@ public class opponentController : MonoBehaviour
                 pos1 = _gameManager.GetPositionOfTokenInGrid(toCheck);
 
                 foreach (var move in ValidMoves(pos1))
-                {
+                {   //if there's a match, add that move to a list of possible moves
                     if (GridHasHorizontalMatch(pos1, move))
                     {
-                        possibleMoves.Add(new []{pos1, move});
+                        horizontalMatches.Add(new []{pos1, move});
                     }
                     if (GridHasVerticalMatch(pos1, move))
                     {
-                        possibleMoves.Add(new []{pos1, move});
+                        verticalMatches.Add(new []{pos1, move});
                     }
-                    //if there's a match, add that move to a list of possible moves
                     //rank according to the length of the match
                     //make (one of) the move(s) with the longest possible match
+                }
+
+                //find the length of each possible match
+                foreach (var move in horizontalMatches)
+                {
+                    _GetHorizontalMatchLength(move[0], move[1]);
+                }
+                
+                foreach (var move in verticalMatches)
+                {
+                    _GetVerticalMatchLength(move[0], move[1]);
                 }
             }
         }
@@ -94,5 +105,61 @@ public class opponentController : MonoBehaviour
         } else {
             return false;
         }
+    }
+    
+    private int _GetHorizontalMatchLength(Vector2 pos1, Vector2 pos2){
+        int matchLength = 1;
+		
+        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+
+        if(first != null){
+            SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+			
+            for(int i = (int)pos2.x + 1; i < _gameManager.gridWidth; i++){
+                GameObject other = _gameManager.gridArray[i, (int)pos2.y];
+
+                if(other != null){
+                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+
+                    if(sr1.sprite == sr2.sprite){
+                        matchLength++;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+		
+        return matchLength;
+    }
+    
+    private int _GetVerticalMatchLength(Vector2 pos1, Vector2 pos2) {
+        int matchLength = 1;
+
+        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+
+        if (first != null) {
+            SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+
+            for (int i = (int)pos2.y + 1; i < _gameManager.gridHeight; i++) {
+                GameObject other = _gameManager.gridArray[(int)pos2.x, i];
+
+                if (other != null) {
+                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+
+                    if (sr1.sprite == sr2.sprite) {
+                        matchLength++;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return matchLength;
     }
 }
