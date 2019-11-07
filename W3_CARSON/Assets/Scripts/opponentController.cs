@@ -87,7 +87,7 @@ public class opponentController : MonoBehaviour
 
     bool InGrid(Vector2 move)
     {
-        if (move.x > 0 && move.x < _gameManager.gridWidth - 1 && move.y > 0 && move.y < _gameManager.gridHeight - 1) return true;
+        if (move.x > 0 && move.x < _gameManager.gridWidth - 2 && move.y > 0 && move.y < _gameManager.gridHeight - 2) return true;
         return false;
     }
     Vector2[] ValidMoves(Vector2 pos1)
@@ -107,10 +107,13 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasHorizontalMatch(Vector2 pos1, Vector2 pos2){
-        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
-        GameObject token2 = _gameManager.gridArray[(int)pos2.x + 1, (int)pos2.y];
-        GameObject token3 = _gameManager.gridArray[(int)pos2.x + 2, (int)pos2.y];
-		
+        Debug.Log((ulong)pos1.x  + ", " + (ulong)pos1.y);
+        GameObject token1 = _gameManager.gridArray[(ulong)pos1.x, (ulong)pos1.y];
+        Debug.Log((ulong)pos2.x + 1 + ", " + (ulong)pos2.y);
+        GameObject token2 = _gameManager.gridArray[(ulong)pos2.x + 1, (ulong)pos2.y];
+        Debug.Log((ulong)pos2.x + 2 + ", " + (ulong)pos2.y);
+        GameObject token3 = _gameManager.gridArray[(ulong)pos2.x + 2, (ulong)pos2.y];
+
         if(token1 != null && token2 != null && token3 != null){
             SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
             SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
@@ -123,10 +126,13 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasVerticalMatch(Vector2 pos1, Vector2 pos2){
-        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y + 0];
-        GameObject token2 = _gameManager.gridArray[(int)pos2.x, (int)pos1.y + 1];
-        GameObject token3 = _gameManager.gridArray[(int)pos2.x, (int)pos1.y + 2];
-		
+        Debug.Log((ulong)pos1.x  + ", " + (ulong)pos1.y);
+        GameObject token1 = _gameManager.gridArray[(ulong)pos1.x, (ulong)pos1.y];
+        Debug.Log((ulong)pos2.x  + ", " + (ulong)pos1.y + 1);
+        GameObject token2 = _gameManager.gridArray[(ulong)pos2.x, (ulong)pos1.y + 1];
+        Debug.Log((ulong)pos2.x  + ", " + (ulong)pos1.y + 2);
+        GameObject token3 = _gameManager.gridArray[(ulong)pos2.x, (ulong)pos1.y + 2];
+
         if(token1 != null && token2 != null && token3 != null){
             SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
             SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
@@ -141,7 +147,7 @@ public class opponentController : MonoBehaviour
     private int _GetHorizontalMatchLength(Vector2 pos1, Vector2 pos2){
         int matchLength = 1;
 		
-        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        GameObject first = _gameManager.gridArray[(ulong)pos1.x, (int)pos1.y];
 
         if(first != null){
             SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
