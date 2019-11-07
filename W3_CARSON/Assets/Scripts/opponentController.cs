@@ -17,7 +17,7 @@ public class opponentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T))
         {
             FindPossibleMatches();
         }
@@ -38,18 +38,19 @@ public class opponentController : MonoBehaviour
 
                 foreach (var move in ValidMoves(pos1))
                 {
-                    if (move.x > 0 && move.x < _gameManager.gridWidth && move.y > 0 && move.y < _gameManager.gridHeight)
+                    if (InGrid(move))
                     {
                         //if there's a match, add that move to a list of possible moves
                         if (GridHasHorizontalMatch(pos1, move))
                         {
                             horizontalMatches.Add(new[] {pos1, move});
+
+                            if (GridHasVerticalMatch(pos1, move))
+                            {
+                                verticalMatches.Add(new[] {pos1, move});
+                            }
                         }
 
-                        if (GridHasVerticalMatch(pos1, move))
-                        {
-                            verticalMatches.Add(new[] {pos1, move});
-                        }
                     }
                 }
 
@@ -58,20 +59,37 @@ public class opponentController : MonoBehaviour
                 //add possible match and its match length to our dictionary
                 foreach (var match in horizontalMatches)
                 {
-                    possibleMatches.Add(match, _GetHorizontalMatchLength(match[0], match[1]));
+                    if (possibleMatches.ContainsKey(match) == false)
+                    {
+                        possibleMatches.Add(match, _GetHorizontalMatchLength(match[0], match[1]));
+                    }
                 }
                 
                 foreach (var match in verticalMatches)
                 {
-                    possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
+                    if (possibleMatches.ContainsKey(match) == false)
+                    {
+                        possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
+                    }
                 }
                 
-                //rank according to the length of the match
+                //find match with longest match length
+                if (possibleMatches != null)
+                {
+                    Debug.Log(possibleMatches.Count);
+                    //var bestMatch = possibleMatches.Values.Max();
+                }
+
                 //make (one of) the move(s) with the longest possible match
             }
         }
     }
 
+    bool InGrid(Vector2 move)
+    {
+        if (move.x > 0 && move.x < _gameManager.gridWidth - 1 && move.y > 0 && move.y < _gameManager.gridHeight - 1) return true;
+        return false;
+    }
     Vector2[] ValidMoves(Vector2 pos1)
     {
         Vector2[] validMoves = new[]
