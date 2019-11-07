@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class opponentController : MonoBehaviour
 {
     private GameManagerScript _gameManager;
-
     private Vector2 pos1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +17,17 @@ public class opponentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.T))
+        {
+            FindPossibleMatches();
+        }
     }
 
     private void FindPossibleMatches()
     {
         List<Vector2[]> horizontalMatches = new List<Vector2[]>();
         List<Vector2[]> verticalMatches = new List<Vector2[]>();
+        Dictionary<Vector2[], int> possibleMatches = new Dictionary<Vector2[], int>();
         
         for (int x = 0; x < _gameManager.gridWidth; x++)
         {
@@ -32,29 +37,37 @@ public class opponentController : MonoBehaviour
                 pos1 = _gameManager.GetPositionOfTokenInGrid(toCheck);
 
                 foreach (var move in ValidMoves(pos1))
-                {   //if there's a match, add that move to a list of possible moves
-                    if (GridHasHorizontalMatch(pos1, move))
+                {
+                    if (move.x > 0 && move.x < _gameManager.gridWidth && move.y > 0 && move.y < _gameManager.gridHeight)
                     {
-                        horizontalMatches.Add(new []{pos1, move});
+                        //if there's a match, add that move to a list of possible moves
+                        if (GridHasHorizontalMatch(pos1, move))
+                        {
+                            horizontalMatches.Add(new[] {pos1, move});
+                        }
+
+                        if (GridHasVerticalMatch(pos1, move))
+                        {
+                            verticalMatches.Add(new[] {pos1, move});
+                        }
                     }
-                    if (GridHasVerticalMatch(pos1, move))
-                    {
-                        verticalMatches.Add(new []{pos1, move});
-                    }
-                    //rank according to the length of the match
-                    //make (one of) the move(s) with the longest possible match
                 }
 
-                //find the length of each possible match
-                foreach (var move in horizontalMatches)
+                var matchLength = 0;
+
+                //add possible match and its match length to our dictionary
+                foreach (var match in horizontalMatches)
                 {
-                    _GetHorizontalMatchLength(move[0], move[1]);
+                    possibleMatches.Add(match, _GetHorizontalMatchLength(match[0], match[1]));
                 }
                 
-                foreach (var move in verticalMatches)
+                foreach (var match in verticalMatches)
                 {
-                    _GetVerticalMatchLength(move[0], move[1]);
+                    possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
                 }
+                
+                //rank according to the length of the match
+                //make (one of) the move(s) with the longest possible match
             }
         }
     }
