@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ba5a99ab4c24c9eab4e107b7b6084c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayersTurn: 0
   playHasBegun: 0
   movesLeft: 10
   score: 0

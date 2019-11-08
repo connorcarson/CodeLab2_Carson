@@ -6,12 +6,14 @@ using UnityEngine;
 public class OpponentController : MonoBehaviour
 {
     private GameManagerScript _gameManager;
+    private MoveTokensScript _moveTokensScript;
     private Vector2 pos1;
     
     // Start is called before the first frame update
     void Start()
     {
         _gameManager = GetComponent<GameManagerScript>();
+        _moveTokensScript = GetComponent<MoveTokensScript>();
     }
 
     // Update is called once per frame
@@ -79,12 +81,15 @@ public class OpponentController : MonoBehaviour
         if (possibleMatches != null)
         {
             Debug.Log("match count: " + possibleMatches.Count);
-            var bestMatch = possibleMatches.Values.Max();
-            Debug.Log(bestMatch);
+            var maxMatchLength = possibleMatches.Values.Max();
+            Debug.Log(maxMatchLength);
+            var bestMatch = possibleMatches.FirstOrDefault(x => x.Value == maxMatchLength).Key;
+            _moveTokensScript.SetupTokenExchange(_gameManager.gridArray[(int)bestMatch[0].x, (int)bestMatch[0].y], bestMatch[0], 
+            _gameManager.gridArray[(int)bestMatch[1].x, (int)bestMatch[1].y], bestMatch[1], true);
         }
-
-        _gameManager.isPlayersTurn = true;
         //make (one of) the move(s) with the longest possible match
+        
+        _gameManager.isPlayersTurn = true;
     }
 
     bool InGrid(Vector2 move)
