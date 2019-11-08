@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-	public bool isPlayersTurn;
+	public bool isPlayersTurn = true;
 	public bool playHasBegun;
 	public int movesLeft;
 	public int score;
@@ -49,7 +49,6 @@ public class GameManagerScript : MonoBehaviour
 		set
 		{
 			score = value;
-			//scoreUI.text = "Score: " + score;
 		}
 	}
 
@@ -70,12 +69,17 @@ public class GameManagerScript : MonoBehaviour
 		//update score
 		scoreUI.text = "Score: " + Score;
 		
-		if(!GridHasEmpty()){
+		if(!GridHasEmpty())
+		{
+			if (moveTokenManager.lerpPercent >= 1)
+			{
+				moveTokenManager.move = false;
+			}
 			if(matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
-			} else if (isPlayersTurn){
+			} else if (isPlayersTurn && !moveTokenManager.move){
 				inputManager.SelectToken();
-			} else if(!isPlayersTurn){
+			} else if(!isPlayersTurn && !moveTokenManager.move){
 				opponentController.FindPossibleMatches();
 			}
 		} else {
