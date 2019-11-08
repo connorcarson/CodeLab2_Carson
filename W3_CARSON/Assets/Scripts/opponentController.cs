@@ -72,18 +72,17 @@ public class opponentController : MonoBehaviour
                         possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
                     }
                 }
-                
-                //find match with longest match length
-                if (possibleMatches != null)
-                {
-                    Debug.Log("match count: " + possibleMatches.Count);
-                    //var bestMatch = possibleMatches.Values.Max();
-                    //Debug.Log(bestMatch);
-                }
-
-                //make (one of) the move(s) with the longest possible match
             }
         }
+        
+        //find match with longest match length
+        if (possibleMatches != null)
+        {
+            Debug.Log("match count: " + possibleMatches.Count);
+            var bestMatch = possibleMatches.Values.Max();
+            Debug.Log(bestMatch);
+        }
+        //make (one of) the move(s) with the longest possible match
     }
 
     bool InGrid(Vector2 move)
@@ -168,6 +167,22 @@ public class opponentController : MonoBehaviour
                     break;
                 }
             }
+            
+            for(int i = (int)pos2.x - 1; i >= 0; i--){
+                GameObject other = _gameManager.gridArray[i, (int)pos2.y];
+
+                if(other != null){
+                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+
+                    if(sr1.sprite == sr2.sprite){
+                        matchLength++;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
         }
 		
         return matchLength;
@@ -182,6 +197,22 @@ public class opponentController : MonoBehaviour
             SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
 
             for (int i = (int)pos2.y + 1; i < _gameManager.gridHeight; i++) {
+                GameObject other = _gameManager.gridArray[(int)pos2.x, i];
+
+                if (other != null) {
+                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+
+                    if (sr1.sprite == sr2.sprite) {
+                        matchLength++;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            
+            for (int i = (int)pos2.y - 1; i >= 0; i--) {
                 GameObject other = _gameManager.gridArray[(int)pos2.x, i];
 
                 if (other != null) {
