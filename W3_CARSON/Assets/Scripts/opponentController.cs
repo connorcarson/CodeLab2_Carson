@@ -76,7 +76,7 @@ public class opponentController : MonoBehaviour
                 //find match with longest match length
                 if (possibleMatches != null)
                 {
-                    Debug.Log(possibleMatches.Count);
+                    Debug.Log("match count: " + possibleMatches.Count);
                     //var bestMatch = possibleMatches.Values.Max();
                     //Debug.Log(bestMatch);
                 }
@@ -108,12 +108,12 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasHorizontalMatch(Vector2 pos1, Vector2 pos2){
-        //Debug.Log((ulong)pos1.x  + ", " + (ulong)pos1.y);
-        GameObject token1 = _gameManager.gridArray[(ulong)pos1.x, (ulong)pos1.y];
-        //Debug.Log((ulong)pos2.x + 1 + ", " + (ulong)pos2.y);
-        GameObject token2 = _gameManager.gridArray[(ulong)pos2.x + 1, (ulong)pos2.y];
-        //Debug.Log((ulong)pos2.x + 2 + ", " + (ulong)pos2.y);
-        GameObject token3 = _gameManager.gridArray[(ulong)pos2.x + 2, (ulong)pos2.y];
+        Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
+        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        Debug.Log((int)pos2.x + 1 + ", " + (int)pos2.y);
+        GameObject token2 = _gameManager.gridArray[(int)pos2.x + 1, (int)pos2.y];
+        Debug.Log((int)pos2.x + 2 + ", " + (int)pos2.y);
+        GameObject token3 = _gameManager.gridArray[(int)pos2.x + 2, (int)pos2.y];
 
         if(token1 != null && token2 != null && token3 != null){
             SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
@@ -127,12 +127,12 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasVerticalMatch(Vector2 pos1, Vector2 pos2){
-        //Debug.Log((ulong)pos1.x  + ", " + (ulong)pos1.y);
-        GameObject token1 = _gameManager.gridArray[(ulong)pos1.x, (ulong)pos1.y];
-        //Debug.Log((ulong)pos2.x  + ", " + (ulong)pos1.y + 1);
-        GameObject token2 = _gameManager.gridArray[(ulong)pos2.x, (ulong)pos1.y + 1];
-        //Debug.Log((ulong)pos2.x  + ", " + (ulong)pos1.y + 2);
-        GameObject token3 = _gameManager.gridArray[(ulong)pos2.x, (ulong)pos1.y + 2];
+        Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
+        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 1);
+        GameObject token2 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 1];
+        Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 2);
+        GameObject token3 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 2];
 
         if(token1 != null && token2 != null && token3 != null){
             SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
@@ -148,7 +148,7 @@ public class opponentController : MonoBehaviour
     private int _GetHorizontalMatchLength(Vector2 pos1, Vector2 pos2){
         int matchLength = 1;
 		
-        GameObject first = _gameManager.gridArray[(ulong)pos1.x, (int)pos1.y];
+        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
 
         if(first != null){
             SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
