@@ -46,13 +46,11 @@ public class OpponentController : MonoBehaviour
                         if (GridHasHorizontalMatch(pos1, move))
                         {
                             horizontalMatches.Add(new[] {pos1, move});
-
-                            if (GridHasVerticalMatch(pos1, move))
-                            {
-                                verticalMatches.Add(new[] {pos1, move});
-                            }
                         }
-
+                        if (GridHasVerticalMatch(pos1, move))
+                        {
+                            verticalMatches.Add(new[] {pos1, move});
+                        }
                     }
                 }
 

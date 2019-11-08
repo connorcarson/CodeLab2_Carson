@@ -113,7 +113,7 @@ public class GameManagerScript : MonoBehaviour
 			SceneManager.LoadScene(0);
 		}
 
-		if (MovesLeft <= 0)
+		if (MovesLeft <= 0 && !moveTokenManager.move)
 		{
 			GameOver();
 		}
