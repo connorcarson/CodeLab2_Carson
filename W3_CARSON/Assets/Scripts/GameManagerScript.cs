@@ -1,18 +1,21 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManagerScript : MonoBehaviour
 {
 	public bool isPlayersTurn = true;
 	public bool playHasBegun;
 	public int movesLeft;
-	public int score;
+	public int yourScore;
+	public int theirScore;
 	public int gridWidth = 8;
 	public int gridHeight = 8;
 	public float tokenSize = 1;
 	public TextMeshProUGUI movesUI;
-	public TextMeshProUGUI scoreUI;
+	public TextMeshProUGUI yourScoreUI;
+	public TextMeshProUGUI theirScoreUI;
 	public TextMeshProUGUI finalScore;
 	public GameObject gameOverPanel;
 
@@ -40,18 +43,30 @@ public class GameManagerScript : MonoBehaviour
 		}
 	}
 
-	public int Score
+	public int YourScore
 	{
 		get
 		{
-			return score;
+			return yourScore;
 		}
 		set
 		{
-			score = value;
+			yourScore = value;
 		}
 	}
 
+	public int TheirScore
+	{
+		get
+		{
+			return theirScore;
+		}
+		set
+		{
+			theirScore = value;
+		}
+	}
+	
 	public virtual void Start () {
 		tokenTypes = (Object[])Resources.LoadAll("Tokens/");
 		gridArray = new GameObject[gridWidth, gridHeight];
@@ -66,8 +81,10 @@ public class GameManagerScript : MonoBehaviour
 	public virtual void Update(){
 		//update moves left
 		movesUI.text = "Moves Left: " + MovesLeft;
-		//update score
-		scoreUI.text = "Score: " + Score;
+		//update your score
+		yourScoreUI.text = "Your Score: " + YourScore;
+		//update their score
+		theirScoreUI.text = "Their Score: " + TheirScore;
 		
 		if(!GridHasEmpty())
 		{
@@ -153,6 +170,6 @@ public class GameManagerScript : MonoBehaviour
 	public void GameOver()
 	{
 		gameOverPanel.SetActive(true);
-		finalScore.text = "Score: " + Score;
+		finalScore.text = "Score: " + YourScore;
 	}
 }

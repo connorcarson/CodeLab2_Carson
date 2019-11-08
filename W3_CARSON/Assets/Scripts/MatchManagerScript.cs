@@ -130,7 +130,14 @@ public class MatchManagerScript : MonoBehaviour {
 							GameObject token = _gameManager.gridArray[i, y]; 
 							Destroy(token);
 							if (_gameManager.playHasBegun) {
-								_gameManager.score++;
+								if (_gameManager.isPlayersTurn)
+								{
+									_gameManager.theirScore++;
+								}
+								else
+								{
+									_gameManager.yourScore++;
+								}
 							}
 
 							_gameManager.gridArray[i, y] = null;
@@ -150,7 +157,7 @@ public class MatchManagerScript : MonoBehaviour {
 							GameObject token = _gameManager.gridArray[x, i];
 							Destroy(token);
 							if (_gameManager.playHasBegun) {
-								_gameManager.score++;
+								_gameManager.yourScore++;
 							}
 
 							_gameManager.gridArray[x, i] = null;
