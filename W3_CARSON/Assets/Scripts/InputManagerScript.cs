@@ -41,13 +41,13 @@ public class InputManagerScript : MonoBehaviour {
 						_moveManager.SetupTokenExchange(_selected, pos1, tokenCollider.gameObject, pos2, true);
 						_gameManager.movesLeft--;
 						_gameManager.playHasBegun = true;
+						_gameManager.isPlayersTurn = false;
 					}
 
 					_selected = null;
 				}
 			}
 		}
-
 	}
 
 	public void IndicateTokenMatches(Color32 token1Color, Color32 token2Color)

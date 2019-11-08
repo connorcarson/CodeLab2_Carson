@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-
+	public bool isPlayersTurn;
 	public bool playHasBegun;
 	public int movesLeft;
 	public int score;
@@ -20,6 +20,7 @@ public class GameManagerScript : MonoBehaviour
 	protected InputManagerScript inputManager;
 	protected RepopulateScript repopulateManager;
 	protected MoveTokensScript moveTokenManager;
+	protected OpponentController opponentController;
 
 	public GameObject grid;
 	public  GameObject[,] gridArray;
@@ -60,6 +61,7 @@ public class GameManagerScript : MonoBehaviour
 		inputManager = GetComponent<InputManagerScript>();
 		repopulateManager = GetComponent<RepopulateScript>();
 		moveTokenManager = GetComponent<MoveTokensScript>();
+		opponentController = GetComponent<OpponentController>();
 	}
 
 	public virtual void Update(){
@@ -71,8 +73,10 @@ public class GameManagerScript : MonoBehaviour
 		if(!GridHasEmpty()){
 			if(matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
-			} else {
+			} else if (isPlayersTurn){
 				inputManager.SelectToken();
+			} else if(!isPlayersTurn){
+				opponentController.FindPossibleMatches();
 			}
 		} else {
 			if(!moveTokenManager.move){

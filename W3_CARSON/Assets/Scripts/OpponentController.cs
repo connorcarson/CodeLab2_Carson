@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class opponentController : MonoBehaviour
+public class OpponentController : MonoBehaviour
 {
     private GameManagerScript _gameManager;
     private Vector2 pos1;
@@ -23,7 +23,7 @@ public class opponentController : MonoBehaviour
         }
     }
 
-    private void FindPossibleMatches()
+    public void FindPossibleMatches()
     {
         List<Vector2[]> horizontalMatches = new List<Vector2[]>();
         List<Vector2[]> verticalMatches = new List<Vector2[]>();
@@ -82,6 +82,8 @@ public class opponentController : MonoBehaviour
             var bestMatch = possibleMatches.Values.Max();
             Debug.Log(bestMatch);
         }
+
+        _gameManager.isPlayersTurn = true;
         //make (one of) the move(s) with the longest possible match
     }
 
@@ -107,11 +109,11 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasHorizontalMatch(Vector2 pos1, Vector2 pos2){
-        Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
+        //Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
         GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
-        Debug.Log((int)pos2.x + 1 + ", " + (int)pos2.y);
+        //Debug.Log((int)pos2.x + 1 + ", " + (int)pos2.y);
         GameObject token2 = _gameManager.gridArray[(int)pos2.x + 1, (int)pos2.y];
-        Debug.Log((int)pos2.x + 2 + ", " + (int)pos2.y);
+        //Debug.Log((int)pos2.x + 2 + ", " + (int)pos2.y);
         GameObject token3 = _gameManager.gridArray[(int)pos2.x + 2, (int)pos2.y];
 
         if(token1 != null && token2 != null && token3 != null){
@@ -126,11 +128,11 @@ public class opponentController : MonoBehaviour
     }
     
     public bool GridHasVerticalMatch(Vector2 pos1, Vector2 pos2){
-        Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
+        //Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
         GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
-        Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 1);
+        //Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 1);
         GameObject token2 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 1];
-        Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 2);
+        //Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 2);
         GameObject token3 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 2];
 
         if(token1 != null && token2 != null && token3 != null){
