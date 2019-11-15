@@ -19,22 +19,56 @@
         };
 
         var game = new Phaser.Game(config);
+        var sprite;
+        var anim;
+        var progress;
+        var frameView;
 
         function preload ()
         {
             this.load.spritesheet('ripley', 'assets/sprites/ellen-ripbro.png', { frameWidth: 37, frameHeight: 45 });
-
-            this.add.image(32, 32, 'ripley', '__BASE').setOrigin(0);
         }
 
         function create ()
         {
+            var keys = scene.input.keyboard.addKeys({
+                up: 'keydown_UP',
+                down: 'down',
+                left: 'left',
+                right: 'right'
+            });
 
+           sprite = this.add.image(400, 300, 'ripley').setScale(2, 2);
+
+            var config = {
+                key: 'walk',
+                frames: this.anims.generateFrameNumbers('mummy'),
+                frameRate: 6,
+                yoyo: true,
+                repeat: -1
+            };
+
+            anim = this.anims.create(config);
+
+            this.input.keyboard.on(keys.up, function (event) {
+            if(sprite.anims.isPaused){
+                    sprite.anims.resume();
+                }
+                else{
+                    sprite.anims.pause;
+                }
+            });
+        }
+
+        function updateFrameView ()
+        {
+            frameView.clear();
+            frameView.fillRect(sprite.frame.cutX, 0, 37, 45);
         }
 
         function update ()
         {
-
+            updateFrameView();
         }
     </script>
 
