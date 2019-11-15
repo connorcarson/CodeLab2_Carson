@@ -6,7 +6,7 @@
 <body>
 
     <script>
-        var config = {
+        var game = new Phaser.Game({
             type: Phaser.AUTO,
             width: 800,
             height: 600,
@@ -16,59 +16,50 @@
                 create: create,
                 update: update
             }
-        };
-
-        var game = new Phaser.Game(config);
-        var player;
-        var anim;
-        var progress;
-        var frameView;
+        });
 
         function preload ()
         {
            this.load.spritesheet('ripley', 'assets/sprites/ellen-ripbro.png', { frameWidth: 37, frameHeight: 45 });
         }
 
+        var ripley;
+        var anim;
+        var frameView;
+
         function create ()
         {
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
 
-            sprite = this.add.image(400, 300, 'ripley').setScale(2, 2);
+            ripley = this.add.sprite(400, 300, 'ripley').setScale(2, 2);
 
             var config = {
                 key: 'walk',
-                frames: this.anims.generateFrameNumbers('mummy'),
+                frames: this.anims.generateFrameNumbers('walk', {start: 1, end: 10, first: 1}),
                 frameRate: 6,
                 yoyo: true,
                 repeat: -1
             };
 
-            anim = this.anims.create(config);
-            console.log(anim);
-            sprite.load('walk');
+            this.anims.create(config);
 
             this.input.keyboard.on('keydown_SPACE', function (event) {
 
-                sprite.anims.play('walk');
+                ripley.anims.play('walk');
 
             });
 
             this.input.keyboard.on('keydown.UP', function (event) {
-            if(sprite.anims.isPaused){
-                    sprite.anims.resume();
+                if(ripley.animation.isPaused){
+                    this.anim.resume();
                 }
                 else{
-                    sprite.anims.pause();
+                    this.anim.pause();
                 }
             });
         }
 
-        function updateFrameView ()
-        {
-            frameView.clear();
-            frameView.fillRect(sprite.frame.cutX, 0, 37, 45);
-        }
 
         function update ()
         {
