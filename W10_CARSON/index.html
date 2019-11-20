@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
 </head>
 <body>
 
@@ -30,15 +30,6 @@
         let currentGoal;
         function create ()
         {
-            var powers =
-                ["moon tiara magic",
-                "moon healing activation",
-                "cosmic moon power",
-                "moon crystal power",
-                "moon scepter elimination",
-                "moon spiral heart attack",
-                "moon gorgeous meditation"]
-            currentGoal = powers[0].split("");
 
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
@@ -49,12 +40,26 @@
             var config = {
                 key: 'special-move',
                 frames: this.anims.generateFrameNumbers('sm', {start: 0, end: 35, first: 0}),
-                frameRate: 8,
+                frameRate: 4,
                 yoyo: false,
                 repeat: -1
             };
 
             anim = this.anims.create(config);
+
+            var powers =
+                ["moon tiara magic",
+                    "moon healing activation",
+                    "cosmic moon power",
+                    "moon crystal power",
+                    "moon scepter elimination",
+                    "moon spiral heart attack",
+                    "moon gorgeous meditation"]
+            currentGoal = powers[0].split("");
+
+            var goalText = this.add.text(0, 0, powers[4], { font: "55px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
+            goalText.setPosition(400 - goalText.width/2, 450);
+
 
             this.input.keyboard.on('keydown_SPACE', function (event) {
                 sm.anims.play('special-move');
