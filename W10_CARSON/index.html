@@ -20,10 +20,10 @@
 
         function preload ()
         {
-           this.load.spritesheet('ripley', 'assets/sprites/ellen-ripbro.png', { frameWidth: 37, frameHeight: 45 });
+           this.load.spritesheet('sm', 'assets/sprites/sm-special-move.png', { frameWidth: 75, frameHeight: 125 });
         }
 
-        var ripley;
+        var sm;
         var anim;
         var frameView;
 
@@ -32,13 +32,14 @@
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
 
-            ripley = this.add.sprite(400, 300, 'ripley').setScale(2, 2);
+            sm = this.add.sprite(400, 300, 'sm').setScale(2, 2);
 
+            //is this a prototype?
             var config = {
-                key: 'walk',
-                frames: this.anims.generateFrameNumbers('walk', {start: 1, end: 10, first: 1}),
-                frameRate: 6,
-                yoyo: true,
+                key: 'special-move',
+                frames: this.anims.generateFrameNumbers('sm', {start: 0, end: 35, first: 0}),
+                frameRate: 8,
+                yoyo: false,
                 repeat: -1
             };
 
@@ -46,12 +47,12 @@
 
             this.input.keyboard.on('keydown_SPACE', function (event) {
 
-                ripley.anims.play('walk');
+                sm.anims.play('special-move');
 
             });
 
             this.input.keyboard.on('keydown.UP', function (event) {
-                if(ripley.animation.isPaused){
+                if(sm.animation.isPaused){
                     this.anim.resume();
                 }
                 else{
