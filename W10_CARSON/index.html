@@ -26,9 +26,20 @@
         var sm;
         var anim;
         var frameView;
-
+        let buffer;
+        let currentGoal;
         function create ()
         {
+            var powers =
+                ["moon tiara magic",
+                "moon healing activation",
+                "cosmic moon power",
+                "moon crystal power",
+                "moon scepter elimination",
+                "moon spiral heart attack",
+                "moon gorgeous meditation"]
+            currentGoal = powers[0].split("");
+
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
             frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
 
@@ -49,18 +60,18 @@
                 sm.anims.play('special-move');
             });
 
-            let buffer = [];
+            buffer = [];
             let lastKeyTime = Date.now();
 
             document.addEventListener('keydown', event => {
-                const charList = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                const charList = 'abcdefghijklmnopqrstuvwxyz0123456789 ';
                 const key = event.key.toLowerCase();
 
                 // we are only interested in alphanumeric keys
                 if (charList.indexOf(key) === -1) return;
 
                 const currentTime = Date.now();
-
+                //1000 is milliseconds here, so 1 full second
                 if(currentTime - lastKeyTime > 1000){
                     buffer = [];
                 }
@@ -68,8 +79,13 @@
                 lastKeyTime = currentTime;
 
                 buffer.push(key);
-                console.log(buffer);
+                //console.log(buffer.toString());
+                //console.log(currentGoal.toString());
+                if(arraysMatch(buffer, currentGoal)){
+                    console.log("You did it!")
+                }
             });
+
         }
 
 
@@ -77,6 +93,19 @@
         {
 
         }
+
+        var arraysMatch = function (arr1, arr2) {
+
+            // Check if the arrays are the same length
+            if (arr1.length !== arr2.length) return false;
+            // Check if all items exist and are in the same order
+            for (var i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) return false;
+            }
+            // Otherwise, return true
+            return true;
+        };
+
     </script>
 
 </body>
