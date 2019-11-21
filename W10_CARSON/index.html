@@ -98,6 +98,7 @@
                     sm.anims.play('special-move');
                     currentGoalIndex += 1;
                     goalText.setText(powers[currentGoalIndex]);
+                    goalText.setPosition(400 - goalText.width/2, 450);
                     currentGoal = powers[currentGoalIndex].split("");
                 }
             });
