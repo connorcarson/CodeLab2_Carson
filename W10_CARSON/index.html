@@ -26,9 +26,10 @@
         var sm;
         var anim;
         var nextFrame;
+        var powers;
         let buffer;
         let currentGoal;
-        let currentGoalIndex;
+        let currentGoalIndex = 0;
 
         function create ()
         {
@@ -49,7 +50,7 @@
 
             anim = this.anims.create(config);
 
-            var powers =
+            powers =
                     ["moooooooooon tiaaaaraaaaaaaa magic",
                     "mooooooon heeeeaaaaling activation",
                     "cooooosmiiiiic mooooooooooon power",
@@ -58,9 +59,9 @@
                     "moooooon spiiiralll hearrrt attack",
                     "mooooooon gorgeoussssss meditation"]
 
-            currentGoal = powers[0].split("");
+            currentGoal = powers[currentGoalIndex].split("");
 
-            var goalText = this.add.text(0, 0, powers[0], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
+            var goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
             goalText.setPosition(400 - goalText.width/2, 450);
 
             //sm.anims.play('special-move');
@@ -95,6 +96,9 @@
                 if(arraysMatch(buffer, currentGoal)){
                     console.log("You wrote the correct string!")
                     sm.anims.play('special-move');
+                    currentGoalIndex += 1;
+                    goalText.setText(powers[currentGoalIndex]);
+                    currentGoal = powers[currentGoalIndex].split("");
                 }
             });
 
@@ -104,6 +108,7 @@
         function update ()
         {
             if(nextFrame >= 35) {nextFrame = 1;}
+            if(currentGoalIndex >= powers.length - 1) {currentGoalIndex = 0;}
         }
 
         var arraysMatch = function (arr1, arr2) {
