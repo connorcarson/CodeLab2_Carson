@@ -12,6 +12,12 @@
             width: 800,
             height: 600,
             backgroundColor: '#272829',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 0 },
+                    debug: false
+                }},
             scene: {
                 preload: preload,
                 create: create,
@@ -22,9 +28,19 @@
         function preload ()
         {
            this.load.spritesheet('sm', 'assets/sprites/sm-special-move.png', { frameWidth: 75, frameHeight: 125 });
+           this.load.spritesheet('enemy1', 'assets/sprites/enemy1.png', {frameWidth: 75, frameHeight: 125});
+           this.load.spritesheet('enemy2', 'assets/sprites/enemy2.png', {frameWidth: 75, frameHeight: 125});
+           this.load.spritesheet('enemy3', 'assets/sprites/enemy3.png', {frameWidth: 75, frameHeight: 125});
+           this.load.spritesheet('enemy4', 'assets/sprites/enemy4.png', {frameWidth: 75, frameHeight: 125});
+           this.load.spritesheet('enemy5', 'assets/sprites/enemy5.png', {frameWidth: 75, frameHeight: 125});
         }
 
         let sm;
+        let enemy1;
+        let enemy2;
+        let enemy3;
+        let enemy4;
+        let enemy5;
         let anim;
         let nextFrame;
         let powers;
@@ -38,6 +54,11 @@
             //frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
 
             sm = this.add.sprite(400, 300, 'sm').setScale(2, 2);
+            enemy1 = this.physics.add.sprite(550, 250, 'enemy1').setScale(1, 1);
+            enemy2 = this.physics.add.sprite(700, 100, 'enemy2').setScale(1, 1);
+            enemy3 = this.physics.add.sprite(100, 150, 'enemy3').setScale(1, 1);
+            enemy4 = this.physics.add.sprite(200, 350, 'enemy4').setScale(1, 1);
+            enemy5 = this.physics.add.sprite(650, 400, 'enemy5').setScale(1, 1);
 
             nextFrame = 1;
 
@@ -80,10 +101,10 @@
 
                 const currentTime = Date.now();
                 //1000 is milliseconds here, so 1 full second
-                if(currentTime - lastKeyTime > 1000){
+                if(currentTime - lastKeyTime > 500){
                     buffer = [];
-                    //nextFrame = 1;
-                    //sm.setFrame(0);
+                    nextFrame = 1;
+                    sm.setFrame(0);
                 }
 
                 lastKeyTime = currentTime;
@@ -94,7 +115,6 @@
                     console.log("You wrote the next correct character!")
                     nextFrame += 1;
                     sm.setFrame(nextFrame);
-                    return;
                 }
                 if(arraysMatch(buffer, currentGoal)){
                     console.log("You wrote the correct string!")
@@ -103,10 +123,6 @@
                     goalText.setText(powers[currentGoalIndex]);
                     goalText.setPosition(400 - goalText.width/2, 450);
                     currentGoal = powers[currentGoalIndex].split("");
-                }
-                else if (!arraysMatch(buffer, currentGoal)){
-                    nextFrame = 1;
-                    sm.setFrame(0);
                 }
             });
 
@@ -140,6 +156,17 @@
             // Otherwise, return true
             return true;
         };
+
+        class Enemy extends Phaser.Physics.Arcade.Sprite {
+            constructor(scene, x, y, key, type) {
+                super(scene, x, y, key, type);
+                this.scene = scene;
+                this.x = x;
+                this.y = y;
+
+                this.enemy = this.scene.physics.add.sprite(x, y, 'player2', 'tank1');
+            }
+        }
 
     </script>
 
