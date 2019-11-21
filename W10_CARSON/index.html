@@ -2,6 +2,7 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
+    <script src2="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.js>"></script>
 </head>
 <body>
 
@@ -23,13 +24,14 @@
            this.load.spritesheet('sm', 'assets/sprites/sm-special-move.png', { frameWidth: 75, frameHeight: 125 });
         }
 
-        var sm;
-        var anim;
-        var nextFrame;
-        var powers;
+        let sm;
+        let anim;
+        let nextFrame;
+        let powers;
         let buffer;
         let currentGoal;
         let currentGoalIndex = 0;
+        let goalText;
 
         function create ()
         {
@@ -61,12 +63,12 @@
 
             currentGoal = powers[currentGoalIndex].split("");
 
-            var goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
+            goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ffffff", boundsAlignH: "center", boundsAlignV: "middle" });
             goalText.setPosition(400 - goalText.width/2, 450);
-
-            //sm.anims.play('special-move');
+            goalText.setTint(0xff0040, 0xffff00, 0x2602f2, 0xe00b36);
 
             buffer = [];
+
             let lastKeyTime = Date.now();
 
             document.addEventListener('keydown', event => {
@@ -80,8 +82,8 @@
                 //1000 is milliseconds here, so 1 full second
                 if(currentTime - lastKeyTime > 1000){
                     buffer = [];
-                    nextFrame = 1;
-                    sm.setFrame(0);
+                    //nextFrame = 1;
+                    //sm.setFrame(0);
                 }
 
                 lastKeyTime = currentTime;
@@ -92,6 +94,7 @@
                     console.log("You wrote the next correct character!")
                     nextFrame += 1;
                     sm.setFrame(nextFrame);
+                    return;
                 }
                 if(arraysMatch(buffer, currentGoal)){
                     console.log("You wrote the correct string!")
@@ -101,15 +104,29 @@
                     goalText.setPosition(400 - goalText.width/2, 450);
                     currentGoal = powers[currentGoalIndex].split("");
                 }
+                else if (!arraysMatch(buffer, currentGoal)){
+                    nextFrame = 1;
+                    sm.setFrame(0);
+                }
             });
 
         }
-
 
         function update ()
         {
             if(nextFrame >= 35) {nextFrame = 1;}
             if(currentGoalIndex >= powers.length - 1) {currentGoalIndex = 0;}
+            karaokeFont();
+        }
+
+        function karaokeFont()
+        {
+            let newText = "";
+            for(var i=0; i < goalText.length; i++)
+            {
+                goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
+            }
+            goalText.innerHTML = newText;
         }
 
         var arraysMatch = function (arr1, arr2) {
