@@ -48,17 +48,23 @@
         let currentGoal;
         let currentGoalIndex = 0;
         let goalText;
+        let enemies = [];
+        let enemySprites;
 
         function create ()
         {
-            //frameView = this.add.graphics({ fillStyle: { color: 0xff00ff }, x: 32, y: 32 });
-
             sm = this.add.sprite(400, 300, 'sm').setScale(2, 2);
-            enemy1 = this.physics.add.sprite(550, 250, 'enemy1').setScale(1, 1);
-            enemy2 = this.physics.add.sprite(700, 100, 'enemy2').setScale(1, 1);
-            enemy3 = this.physics.add.sprite(100, 150, 'enemy3').setScale(1, 1);
-            enemy4 = this.physics.add.sprite(200, 350, 'enemy4').setScale(1, 1);
-            enemy5 = this.physics.add.sprite(650, 400, 'enemy5').setScale(1, 1);
+
+            enemySprites = [];
+            enemySprites.push('enemy1', 'enemy2', 'enemy3', 'enemy4', 'enemy5');
+
+            for(var i = 0; i < 10; i++){
+                var x = Phaser.Math.Between(100, 700);
+                var y = Phaser.Math.Between(100, 500);
+
+                var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
+                enemies.push(enemy);
+            }
 
             nextFrame = 1;
 
@@ -116,6 +122,7 @@
                     nextFrame += 1;
                     sm.setFrame(nextFrame);
                 }
+
                 if(arraysMatch(buffer, currentGoal)){
                     console.log("You wrote the correct string!")
                     sm.anims.play('special-move');
@@ -131,8 +138,12 @@
         function update ()
         {
             if(nextFrame >= 35) {nextFrame = 1;}
+
             if(currentGoalIndex >= powers.length - 1) {currentGoalIndex = 0;}
-            karaokeFont();
+
+            for(var i = 0; i < enemies.length; i++){
+                this.physics.moveToObject(enemies[i], sm, 50);
+            }
         }
 
         function karaokeFont()
@@ -143,6 +154,16 @@
                 goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
             }
             goalText.innerHTML = newText;
+        }
+
+        function spawnEnemies(){
+            for(var i = 0; i < 10; i++){
+                var x = Phaser.Math.Between(100, 700);
+                var y = Phaser.Math.Between(100, 500);
+
+                var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
+                enemies.push(enemy);
+            }
         }
 
         var arraysMatch = function (arr1, arr2) {
@@ -156,17 +177,6 @@
             // Otherwise, return true
             return true;
         };
-
-        class Enemy extends Phaser.Physics.Arcade.Sprite {
-            constructor(scene, x, y, key, type) {
-                super(scene, x, y, key, type);
-                this.scene = scene;
-                this.x = x;
-                this.y = y;
-
-                this.enemy = this.scene.physics.add.sprite(x, y, 'player2', 'tank1');
-            }
-        }
 
     </script>
 
