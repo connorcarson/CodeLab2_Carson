@@ -2,7 +2,6 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
-    <script src2="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.js>"></script>
 </head>
 <body>
 
@@ -96,8 +95,8 @@
             }
 
             //colliders call function playerDied if sailor moon and enemy sprites overlap
-            this.physics.add.collider(sm, enemies);
-            this.physics.add.overlap(sm, enemies, playerDied, null, this);
+            //this.physics.add.collider(sm, enemies);
+            //this.physics.add.overlap(sm, enemies, playerDied, null, this);
 
             //parameters for our sailor moon special move animation
             var config = {
@@ -166,7 +165,7 @@
                     goalText.setPosition(400 - goalText.width/2, 450);
                     currentGoal = powers[currentGoalIndex].split("");
                     for(var i = 0; i < enemies.length; i++){
-                        debug.console(enemies[i].name)
+                        console.log(enemies[i].name);
                         enemies[i].destroy;
                     }
                 }
