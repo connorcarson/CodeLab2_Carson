@@ -140,7 +140,7 @@
 
                 const currentTime = Date.now();
                 //number in milliseconds, 500 is 0.5 seconds
-                if(currentTime - lastKeyTime > 500){
+                if(currentTime - lastKeyTime > 1000){
                     buffer = [];
                     nextFrame = 1;
                     sm.setFrame(0);
