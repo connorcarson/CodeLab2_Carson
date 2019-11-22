@@ -27,6 +27,7 @@
 
         function preload ()
         {
+           //load all of our sprites/assets into our scene
            this.load.spritesheet('sm', 'assets/sprites/sm-special-move.png', { frameWidth: 75, frameHeight: 125 });
            this.load.spritesheet('enemy1', 'assets/sprites/enemy1.png', {frameWidth: 75, frameHeight: 125});
            this.load.spritesheet('enemy2', 'assets/sprites/enemy2.png', {frameWidth: 75, frameHeight: 125});
@@ -42,33 +43,63 @@
         let enemy4;
         let enemy5;
         let anim;
-        let nextFrame;
+        let nextFrame = 1;
         let powers;
-        let buffer;
+        let buffer = [];
         let currentGoal;
         let currentGoalIndex = 0;
         let goalText;
         let enemies = [];
         let enemySprites;
+        let enemiesMoving = true;
 
         function create ()
         {
+            //create sailor moon sprite in scene
             sm = this.add.sprite(400, 300, 'sm').setScale(2, 2);
 
+            //load enemy sprites into an array
             enemySprites = [];
             enemySprites.push('enemy1', 'enemy2', 'enemy3', 'enemy4', 'enemy5');
 
-            for(var i = 0; i < 10; i++){
-                var x = Phaser.Math.Between(100, 700);
-                var y = Phaser.Math.Between(100, 500);
+            //spawn enemies randomly off the left side of the screen
+            for(var i = 0; i < 4; i++){
+                var x = Phaser.Math.Between(-200, -25);
+                var y = Phaser.Math.Between(0, 600);
+
+                var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
+                enemies.push(enemy);
+            }
+            //spawn enemies randomly off the right side of the screen
+            for(var i = 0; i < 4; i++){
+                var x = Phaser.Math.Between(825, 1000);
+                var y = Phaser.Math.Between(0, 600);
+
+                var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
+                enemies.push(enemy);
+            }
+            //spawn enemies randomly off the bottom of the screen
+            for(var i = 0; i < 4; i++){
+                var x = Phaser.Math.Between(0, 800);
+                var y = Phaser.Math.Between(-25, -200);
+
+                var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
+                enemies.push(enemy);
+            }
+            //spawn enemies randomly off the top of the screen
+            for(var i = 0; i < 4; i++){
+                var x = Phaser.Math.Between(0, 800);
+                var y = Phaser.Math.Between(625, 800);
 
                 var enemy = this.physics.add.sprite(x, y, enemySprites[Phaser.Math.Between(0, enemySprites.length)]);
                 enemies.push(enemy);
             }
 
-            nextFrame = 1;
+            //colliders call function playerDied if sailor moon and enemy sprites overlap
+            this.physics.add.collider(sm, enemies);
+            this.physics.add.overlap(sm, enemies, playerDied, null, this);
 
-            //is this a prototype?
+            //parameters for our sailor moon special move animation
             var config = {
                 key: 'special-move',
                 frames: this.anims.generateFrameNumbers('sm', {start: 0, end: 35, first: 0}),
@@ -77,8 +108,11 @@
                 repeat: 0
             };
 
+            //make our animation
             anim = this.anims.create(config);
 
+            //create an array of strings with all possible sailor moon powers
+            //every array is made up of the same number
             powers =
                     ["moooooooooon tiaaaaraaaaaaaa magic",
                     "mooooooon heeeeaaaaling activation",
@@ -88,13 +122,13 @@
                     "moooooon spiiiralll hearrrt attack",
                     "mooooooon gorgeoussssss meditation"]
 
+            //convert our current super power into an array of characters
             currentGoal = powers[currentGoalIndex].split("");
 
+            //create our super power text in scene, set its pos, center it and color/tint it.
             goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ffffff", boundsAlignH: "center", boundsAlignV: "middle" });
             goalText.setPosition(400 - goalText.width/2, 450);
             goalText.setTint(0xff0040, 0xffff00, 0x2602f2, 0xe00b36);
-
-            buffer = [];
 
             let lastKeyTime = Date.now();
 
@@ -106,7 +140,7 @@
                 if (charList.indexOf(key) === -1) return;
 
                 const currentTime = Date.now();
-                //1000 is milliseconds here, so 1 full second
+                //number in milliseconds, 500 is 0.5 seconds
                 if(currentTime - lastKeyTime > 500){
                     buffer = [];
                     nextFrame = 1;
@@ -121,6 +155,7 @@
                     console.log("You wrote the next correct character!")
                     nextFrame += 1;
                     sm.setFrame(nextFrame);
+                    enemiesMoving = false;
                 }
 
                 if(arraysMatch(buffer, currentGoal)){
@@ -130,6 +165,10 @@
                     goalText.setText(powers[currentGoalIndex]);
                     goalText.setPosition(400 - goalText.width/2, 450);
                     currentGoal = powers[currentGoalIndex].split("");
+                    for(var i = 0; i < enemies.length; i++){
+                        debug.console(enemies[i].name)
+                        enemies[i].destroy;
+                    }
                 }
             });
 
@@ -141,19 +180,15 @@
 
             if(currentGoalIndex >= powers.length - 1) {currentGoalIndex = 0;}
 
-            for(var i = 0; i < enemies.length; i++){
-                this.physics.moveToObject(enemies[i], sm, 50);
+            if(enemiesMoving) {
+                for (var i = 0; i < enemies.length; i++) {
+                    this.physics.moveToObject(enemies[i], sm, 15);
+                }
             }
         }
 
-        function karaokeFont()
-        {
-            let newText = "";
-            for(var i=0; i < goalText.length; i++)
-            {
-                goalText = this.add.text(0, 0, powers[currentGoalIndex], { font: "35px Arial", fill: "#ff0044", boundsAlignH: "center", boundsAlignV: "middle" });
-            }
-            goalText.innerHTML = newText;
+        function playerDied(){
+            console.log("collision!");
         }
 
         function spawnEnemies(){
