@@ -156,10 +156,10 @@ TextureImporter:
       name: ChessSpriteSheet_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 70
-        width: 50
-        height: 53
+        x: 24
+        y: 235
+        width: 165
+        height: 168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,7 +167,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46ffc82524fb943c3814abb26b6b9481
+      spriteID: 145d63e866fba41cb852745dd1bbcbd7
       internalID: 7638449649536388200
       vertices: []
       indices: 
@@ -177,10 +177,10 @@ TextureImporter:
       name: ChessSpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 70
-        y: 69
-        width: 52
-        height: 55
+        x: 228
+        y: 237
+        width: 184
+        height: 168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,7 +188,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7671dd2edca98477d81ff624b74c439c
+      spriteID: 60b622e6939ee4dd6b4df5ed5ab60c93
       internalID: 2026996418080791694
       vertices: []
       indices: 
@@ -198,10 +198,10 @@ TextureImporter:
       name: ChessSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 140
-        y: 70
-        width: 40
-        height: 52
+        x: 451
+        y: 239
+        width: 165
+        height: 166
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,7 +209,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c4d9990c53ac4d37b824ee3ec28e4a5
+      spriteID: b8741da0bce974d8c9acdc1e1c7cc4f2
       internalID: -4612857558722001493
       vertices: []
       indices: 
@@ -219,10 +219,10 @@ TextureImporter:
       name: ChessSpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 202
-        y: 69
-        width: 44
-        height: 55
+        x: 664
+        y: 238
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,7 +230,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 516d6f4740a5b4d319dc90c2f0bcf78b
+      spriteID: 931b218467eb14c41bc39811ccd26c9e
       internalID: 3813971555400177128
       vertices: []
       indices: 
@@ -240,10 +240,10 @@ TextureImporter:
       name: ChessSpriteSheet_4
       rect:
         serializedVersion: 2
-        x: 262
-        y: 70
-        width: 52
-        height: 53
+        x: 892
+        y: 238
+        width: 136
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,7 +251,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fd90d314ac5440ac9034ca80e783f7d
+      spriteID: c89a24dafd8c04403b97cec30d3da0fc
       internalID: 6140859487580085202
       vertices: []
       indices: 
@@ -261,10 +261,10 @@ TextureImporter:
       name: ChessSpriteSheet_5
       rect:
         serializedVersion: 2
-        x: 338
-        y: 71
-        width: 28
-        height: 50
+        x: 1112
+        y: 236
+        width: 118
+        height: 152
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,7 +272,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 139671f2eb7754818b2fec9a394af479
+      spriteID: d4e2d3a37c1ef4e49b5a4ef6499a54e8
       internalID: 8325679424592421367
       vertices: []
       indices: 
@@ -282,10 +282,10 @@ TextureImporter:
       name: ChessSpriteSheet_6
       rect:
         serializedVersion: 2
-        x: 7
-        y: 6
-        width: 50
-        height: 53
+        x: 24
+        y: 21
+        width: 165
+        height: 168
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,7 +293,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ebae5b4760104afe9a8b6a26f1d75ca
+      spriteID: 21f27e83fcd694ee3bf72eb96aa837b1
       internalID: 2371462453254554985
       vertices: []
       indices: 
@@ -303,10 +303,10 @@ TextureImporter:
       name: ChessSpriteSheet_7
       rect:
         serializedVersion: 2
-        x: 70
-        y: 5
-        width: 52
-        height: 55
+        x: 228
+        y: 18
+        width: 184
+        height: 171
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -314,7 +314,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8dcb3982451b34f2480ddba4fc09dfc8
+      spriteID: c6a72d6f33281414e8ca460f2f3eb5c6
       internalID: -7918809190652352185
       vertices: []
       indices: 
@@ -324,10 +324,10 @@ TextureImporter:
       name: ChessSpriteSheet_8
       rect:
         serializedVersion: 2
-        x: 140
-        y: 6
-        width: 40
-        height: 52
+        x: 451
+        y: 25
+        width: 165
+        height: 166
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,7 +335,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 113501e3afd2b49a48f596cf1604d7d6
+      spriteID: 3fd894158d9a645f4b2e9596b06b4cc3
       internalID: -6173481004479751890
       vertices: []
       indices: 
@@ -345,10 +345,10 @@ TextureImporter:
       name: ChessSpriteSheet_9
       rect:
         serializedVersion: 2
-        x: 202
-        y: 5
-        width: 44
-        height: 55
+        x: 664
+        y: 24
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,7 +356,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a93ab6f355cf442ada05803cb3a431ec
+      spriteID: f33d864291b60437dbb114737e5e0565
       internalID: 5951347299271531715
       vertices: []
       indices: 
@@ -366,10 +366,10 @@ TextureImporter:
       name: ChessSpriteSheet_10
       rect:
         serializedVersion: 2
-        x: 262
-        y: 6
-        width: 52
-        height: 53
+        x: 892
+        y: 24
+        width: 136
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -377,7 +377,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b087a0b01d8b4eba8bdd6f5c628c547
+      spriteID: be62880a806094f129eb8ac5da2dadd9
       internalID: -1850263755641480824
       vertices: []
       indices: 
@@ -387,10 +387,10 @@ TextureImporter:
       name: ChessSpriteSheet_11
       rect:
         serializedVersion: 2
-        x: 338
-        y: 7
-        width: 28
-        height: 50
+        x: 1112
+        y: 22
+        width: 118
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -398,7 +398,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb7e86bf21b78484d9a6545cd2727f3e
+      spriteID: ad8f805802c964f62a54544c9dd27eef
       internalID: -519431997474160536
       vertices: []
       indices: 

@@ -68,7 +68,7 @@ public class GameManagerScript : MonoBehaviour
 	}
 	
 	public virtual void Start () {
-		tokenTypes = (Object[])Resources.LoadAll("Tokens/");
+		tokenTypes = (Object[])Resources.LoadAll("ChessPieces/");
 		gridArray = new GameObject[gridWidth, gridHeight];
 		MakeGrid();
 		matchManager = GetComponent<MatchManagerScript>();
