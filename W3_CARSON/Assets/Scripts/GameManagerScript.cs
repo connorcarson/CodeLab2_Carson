@@ -94,11 +94,11 @@ public class GameManagerScript : MonoBehaviour
 			}
 			if(matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
-			} /*else if (isPlayersTurn && !moveTokenManager.move){
+			} else if (isPlayersTurn && !moveTokenManager.move){
 				inputManager.SelectToken();
-			} else if(!isPlayersTurn && !moveTokenManager.move){
-				opponentController.FindPossibleMatches();
-			}*/
+			} else if(!isPlayersTurn && !moveTokenManager.move) {
+				StartCoroutine(opponentController.OpponentMove());
+			}
 		} else {
 			if(!moveTokenManager.move){
 				moveTokenManager.SetupTokenMove();

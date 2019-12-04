@@ -78,24 +78,11 @@ public class OpponentController : MonoBehaviour
                 }
             }
         }
-        
-        //find match with longest match length
-        /*if (possibleMatches != null)
-        {
-            Debug.Log("match count: " + possibleMatches.Count);
-            var maxMatchLength = possibleMatches.Values.Max();
-            Debug.Log(maxMatchLength);
-            var bestMatch = possibleMatches.FirstOrDefault(x => x.Value == maxMatchLength).Key;
-            _moveTokensScript.SetupTokenExchange(_gameManager.gridArray[(int)bestMatch[0].x, (int)bestMatch[0].y], bestMatch[0], 
-            _gameManager.gridArray[(int)bestMatch[1].x, (int)bestMatch[1].y], bestMatch[1], true);
-        }*/
-        //make (one of) the move(s) with the longest possible match
 
         foreach (var match in possibleMatches)
         {
             Debug.Log(match.Key[0] + " , " + match.Key[1] + ": " + match.Value);
         }
-        //_gameManager.isPlayersTurn = true;
     }
 
     void MakeMatch()
@@ -109,10 +96,15 @@ public class OpponentController : MonoBehaviour
             _moveTokensScript.SetupTokenExchange(_gameManager.gridArray[(int)bestMatch[0].x, (int)bestMatch[0].y], bestMatch[0], 
                 _gameManager.gridArray[(int)bestMatch[1].x, (int)bestMatch[1].y], bestMatch[1], true);
         }
-        
-        _gameManager.isPlayersTurn = true;
     }
-    
+
+    public IEnumerator OpponentMove()
+    {
+        _gameManager.isPlayersTurn = true;
+        FindPossibleMatches();
+        yield return new WaitForSeconds(Random.Range(1, 3));
+        MakeMatch();
+    }
     bool InGrid(Vector2 move)
     {
         if (move.x > 0 && move.x < _gameManager.gridWidth - 2 && move.y > 0 && move.y < _gameManager.gridHeight - 2) return true;
