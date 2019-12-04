@@ -114,6 +114,85 @@ public class OpponentController : MonoBehaviour
     {
         Vector2[] validMoves = new[]
         {
+            #region Queen Moves
+            new Vector2(pos1.x + 1, pos1.y),
+            new Vector2(pos1.x + 2, pos1.y),
+            new Vector2(pos1.x + 3, pos1.y),
+            new Vector2(pos1.x + 4, pos1.y),
+            new Vector2(pos1.x + 5, pos1.y),
+            new Vector2(pos1.x + 6, pos1.y),
+            new Vector2(pos1.x + 7, pos1.y),
+            
+            new Vector2(pos1.x - 1, pos1.y),
+            new Vector2(pos1.x - 2, pos1.y),
+            new Vector2(pos1.x - 3, pos1.y),
+            new Vector2(pos1.x - 4, pos1.y),
+            new Vector2(pos1.x - 5, pos1.y),
+            new Vector2(pos1.x - 6, pos1.y),
+            new Vector2(pos1.x - 7, pos1.y),
+            
+            new Vector2(pos1.x, pos1.y + 1), 
+            new Vector2(pos1.x, pos1.y + 2), 
+            new Vector2(pos1.x, pos1.y + 3), 
+            new Vector2(pos1.x, pos1.y + 4), 
+            new Vector2(pos1.x, pos1.y + 5), 
+            new Vector2(pos1.x, pos1.y + 6), 
+            new Vector2(pos1.x, pos1.y + 7),
+            
+            new Vector2(pos1.x, pos1.y - 1), 
+            new Vector2(pos1.x, pos1.y - 2), 
+            new Vector2(pos1.x, pos1.y - 3), 
+            new Vector2(pos1.x, pos1.y - 4), 
+            new Vector2(pos1.x, pos1.y - 5), 
+            new Vector2(pos1.x, pos1.y - 6), 
+            new Vector2(pos1.x, pos1.y - 7),
+            
+            new Vector3(pos1.x + 1, pos1.y + 1), 
+            new Vector3(pos1.x + 2, pos1.y + 2),
+            new Vector3(pos1.x + 3, pos1.y + 3),
+            new Vector3(pos1.x + 4, pos1.y + 4),
+            new Vector3(pos1.x + 5, pos1.y + 5),
+            new Vector3(pos1.x + 6, pos1.y + 6),
+            new Vector3(pos1.x + 7, pos1.y + 7),
+            
+            new Vector3(pos1.x - 1, pos1.y - 1), 
+            new Vector3(pos1.x - 2, pos1.y - 2),
+            new Vector3(pos1.x - 3, pos1.y - 3),
+            new Vector3(pos1.x - 4, pos1.y - 4),
+            new Vector3(pos1.x - 5, pos1.y - 5),
+            new Vector3(pos1.x - 6, pos1.y - 6),
+            new Vector3(pos1.x - 7, pos1.y - 7),
+            
+            new Vector3(pos1.x + 1, pos1.y - 1), 
+            new Vector3(pos1.x + 2, pos1.y - 2),
+            new Vector3(pos1.x + 3, pos1.y - 3),
+            new Vector3(pos1.x + 4, pos1.y - 4),
+            new Vector3(pos1.x + 5, pos1.y - 5),
+            new Vector3(pos1.x + 6, pos1.y - 6),
+            new Vector3(pos1.x + 7, pos1.y - 7),
+            
+            new Vector3(pos1.x - 1, pos1.y + 1), 
+            new Vector3(pos1.x - 2, pos1.y + 2),
+            new Vector3(pos1.x - 3, pos1.y + 3),
+            new Vector3(pos1.x - 4, pos1.y + 4),
+            new Vector3(pos1.x - 5, pos1.y + 5),
+            new Vector3(pos1.x - 6, pos1.y + 6),
+            new Vector3(pos1.x - 7, pos1.y + 7),
+            #endregion
+
+            #region King Moves
+            new Vector2(pos1.x + 1, pos1.y),
+            new Vector2(pos1.x - 1, pos1.y),
+            new Vector2(pos1.x, pos1.y + 1),
+            new Vector2(pos1.x, pos1.y - 1), 
+            
+            new Vector2(pos1.x + 1, pos1.y + 1),
+            new Vector2(pos1.x - 1, pos1.y - 1),
+            new Vector2(pos1.x + 1, pos1.y - 1),
+            new Vector2(pos1.x - 1, pos1.y + 1),
+            #endregion
+            
+            #region Knight Moves
             new Vector2(pos1.x + 2, pos1.y + 1), 
             new Vector2(pos1.x + 2, pos1.y - 1),
             new Vector2(pos1.x - 2, pos1.y + 1),
@@ -122,6 +201,80 @@ public class OpponentController : MonoBehaviour
             new Vector2(pos1.x - 1, pos1.y + 2), 
             new Vector2(pos1.x + 1, pos1.y - 2),
             new Vector2(pos1.x - 1, pos1.y - 2),
+            #endregion
+
+            #region Biship Moves
+            new Vector3(pos1.x + 1, pos1.y + 1), 
+            new Vector3(pos1.x + 2, pos1.y + 2),
+            new Vector3(pos1.x + 3, pos1.y + 3),
+            new Vector3(pos1.x + 4, pos1.y + 4),
+            new Vector3(pos1.x + 5, pos1.y + 5),
+            new Vector3(pos1.x + 6, pos1.y + 6),
+            new Vector3(pos1.x + 7, pos1.y + 7),
+            
+            new Vector3(pos1.x - 1, pos1.y - 1), 
+            new Vector3(pos1.x - 2, pos1.y - 2),
+            new Vector3(pos1.x - 3, pos1.y - 3),
+            new Vector3(pos1.x - 4, pos1.y - 4),
+            new Vector3(pos1.x - 5, pos1.y - 5),
+            new Vector3(pos1.x - 6, pos1.y - 6),
+            new Vector3(pos1.x - 7, pos1.y - 7),
+            
+            new Vector3(pos1.x + 1, pos1.y - 1), 
+            new Vector3(pos1.x + 2, pos1.y - 2),
+            new Vector3(pos1.x + 3, pos1.y - 3),
+            new Vector3(pos1.x + 4, pos1.y - 4),
+            new Vector3(pos1.x + 5, pos1.y - 5),
+            new Vector3(pos1.x + 6, pos1.y - 6),
+            new Vector3(pos1.x + 7, pos1.y - 7),
+            
+            new Vector3(pos1.x - 1, pos1.y + 1), 
+            new Vector3(pos1.x - 2, pos1.y + 2),
+            new Vector3(pos1.x - 3, pos1.y + 3),
+            new Vector3(pos1.x - 4, pos1.y + 4),
+            new Vector3(pos1.x - 5, pos1.y + 5),
+            new Vector3(pos1.x - 6, pos1.y + 6),
+            new Vector3(pos1.x - 7, pos1.y + 7),
+            #endregion
+
+            #region Rook Moves
+            new Vector2(pos1.x + 1, pos1.y),
+            new Vector2(pos1.x + 2, pos1.y),
+            new Vector2(pos1.x + 3, pos1.y),
+            new Vector2(pos1.x + 4, pos1.y),
+            new Vector2(pos1.x + 5, pos1.y),
+            new Vector2(pos1.x + 6, pos1.y),
+            new Vector2(pos1.x + 7, pos1.y),
+            
+            new Vector2(pos1.x - 1, pos1.y),
+            new Vector2(pos1.x - 2, pos1.y),
+            new Vector2(pos1.x - 3, pos1.y),
+            new Vector2(pos1.x - 4, pos1.y),
+            new Vector2(pos1.x - 5, pos1.y),
+            new Vector2(pos1.x - 6, pos1.y),
+            new Vector2(pos1.x - 7, pos1.y),
+            
+            new Vector2(pos1.x, pos1.y + 1), 
+            new Vector2(pos1.x, pos1.y + 2), 
+            new Vector2(pos1.x, pos1.y + 3), 
+            new Vector2(pos1.x, pos1.y + 4), 
+            new Vector2(pos1.x, pos1.y + 5), 
+            new Vector2(pos1.x, pos1.y + 6), 
+            new Vector2(pos1.x, pos1.y + 7),
+            
+            new Vector2(pos1.x, pos1.y - 1), 
+            new Vector2(pos1.x, pos1.y - 2), 
+            new Vector2(pos1.x, pos1.y - 3), 
+            new Vector2(pos1.x, pos1.y - 4), 
+            new Vector2(pos1.x, pos1.y - 5), 
+            new Vector2(pos1.x, pos1.y - 6), 
+            new Vector2(pos1.x, pos1.y - 7),
+            #endregion
+            
+            #region Pawn Moves
+            new Vector2(pos1.x + 1 , pos1.y + 1),
+            new Vector2(pos1.x - 1, pos1.y + 1), 
+            #endregion
         };
         return validMoves;
     }
