@@ -35,11 +35,6 @@ public class OpponentController : MonoBehaviour
         }
     }
 
-    private string GetPieceType(GameObject piece)
-    {
-        return piece.GetComponent<ChessPiece>().pieceType;
-    }
-
     public void FindPossibleMatches()
     {
         List<Vector2[]> horizontalMatches = new List<Vector2[]>();
@@ -52,7 +47,7 @@ public class OpponentController : MonoBehaviour
             {
                 var toCheck = _gameManager.gridArray[x, y];
                 pos1 = _gameManager.GetPositionOfTokenInGrid(toCheck);
-                var currentPieceType = GetPieceType(toCheck);
+                var currentPieceType = _gameManager.GetPieceType(toCheck);
                 
                 foreach (var move in ValidMoves(pos1, currentPieceType))
                 {
@@ -112,9 +107,10 @@ public class OpponentController : MonoBehaviour
     {
         _gameManager.isPlayersTurn = true;
         FindPossibleMatches();
-        yield return new WaitForSeconds(Random.Range(1, 3));
+        yield return new WaitForSeconds(Random.Range(0.5f, 3.0f));
         MakeMatch();
     }
+    
     bool InGrid(Vector2 move)
     {
         if (move.x > 0 && move.x < _gameManager.gridWidth - 2 && move.y > 0 && move.y < _gameManager.gridHeight - 2) return true;

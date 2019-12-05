@@ -156,6 +156,11 @@ public class GameManagerScript : MonoBehaviour
 			(x - gridWidth/2) * tokenSize,
 			(y - gridHeight/2) * tokenSize);
 	}
+	
+	public string GetPieceType(GameObject piece)
+	{
+		return piece.GetComponent<ChessPiece>().pieceType;
+	}
 
 	public void AddTokenToPosInGrid(int x, int y, GameObject parent){
 		Vector3 position = GetWorldPositionFromGridPosition(x, y);
