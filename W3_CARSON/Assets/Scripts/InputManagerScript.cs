@@ -1,15 +1,18 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class InputManagerScript : MonoBehaviour {
 	private GameManagerScript _gameManager;
 	private MoveTokensScript _moveManager;
 	private GameObject _selected = null;
+	private GameObject _secondSelected;
 	private Camera _cam;
 	private Vector2 pos1;
 	private Vector2 pos2;
 	private string currentPieceType;
+	private List<GameObject> validSecondaryPieces = new List<GameObject>();
 
 	public Color32 defaultColor;
 	public Color32 selectedColor;
@@ -33,21 +36,17 @@ public class InputManagerScript : MonoBehaviour {
 					pos1 = _gameManager.GetPositionOfTokenInGrid(_selected);
 					IndicateValidMoves(currentPieceType, selectedColor, indicatedColor);
 				} else {
-					
+					_secondSelected = tokenCollider.gameObject;
 					pos2 = _gameManager.GetPositionOfTokenInGrid(tokenCollider.gameObject);
-					IndicateValidMoves(currentPieceType, defaultColor, defaultColor);					
-					//if the absolute value of the tokens' positions is 3
-					/*if((int)(Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.y - pos2.y)) == 3
-						//and the tokens are not at the same position on either the x or y axis
-						&& (int)pos1.x != (int)pos2.x && (int)pos1.y != (int)pos2.y){
-						//then logically, it must be a "knight's move" and you should move those tokens!
-						_moveManager.SetupTokenExchange(_selected, pos1, tokenCollider.gameObject, pos2, true);
-						_gameManager.movesLeft--;
-						_gameManager.playHasBegun = true;
-						_gameManager.isPlayersTurn = false;
-					}*/
-
+					IndicateValidMoves(currentPieceType, defaultColor, defaultColor);
+					
+					if (validSecondaryPieces.Contains(_secondSelected))
+					{
+						SwapPieces();
+					}
+					
 					_selected = null;
+					_secondSelected = null;
 				}
 			}
 		}
@@ -83,13 +82,17 @@ public class InputManagerScript : MonoBehaviour {
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
+				validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 			}
 		}
 	}
 
-	private void StopIndicatingValidMoves()
+	public void SwapPieces()
 	{
-		
+		_moveManager.SetupTokenExchange(_selected, pos1, _secondSelected, pos2, true);
+		_gameManager.movesLeft--;
+		_gameManager.playHasBegun = true;
+		_gameManager.isPlayersTurn = false;
 	}
 
 	private bool IsValidQueenMove(int x, int y)
