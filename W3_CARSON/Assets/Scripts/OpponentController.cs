@@ -21,20 +21,6 @@ public class OpponentController : MonoBehaviour
         _moveTokensScript = GetComponent<MoveTokensScript>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            FindPossibleMatches();
-        }
-
-        if (Input.GetKeyUp(KeyCode.M))
-        {
-            MakeMatch();
-        }
-    }
-
     public void FindPossibleMatches()
     {
         List<Vector2[]> horizontalMatches = new List<Vector2[]>();
@@ -92,7 +78,7 @@ public class OpponentController : MonoBehaviour
 
     void MakeMatch()
     {
-        if (possibleMatches != null)
+        if (possibleMatches.Count > 0)
         {
             Debug.Log("match count: " + possibleMatches.Count);
             var maxMatchLength = possibleMatches.Values.Max();
@@ -105,7 +91,6 @@ public class OpponentController : MonoBehaviour
 
     public IEnumerator OpponentMove()
     {
-        _gameManager.isPlayersTurn = true;
         FindPossibleMatches();
         yield return new WaitForSeconds(Random.Range(0.5f, 3.0f));
         MakeMatch();

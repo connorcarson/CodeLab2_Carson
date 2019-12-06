@@ -45,6 +45,7 @@ public class MoveTokensScript : MonoBehaviour {
 	public void SetupTokenMove(){
 		move = true;
 		lerpPercent = 0;
+		Debug.Log("setting up token move.");
 	}
 
 	public void SetupTokenExchange(GameObject token1, Vector2 pos1,
@@ -61,7 +62,6 @@ public class MoveTokensScript : MonoBehaviour {
 	}
 
 	public virtual void ExchangeTokens(){
-
 		Vector3 startPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos1.x, (int)exchangeGridPos1.y);
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
 
@@ -81,6 +81,8 @@ public class MoveTokensScript : MonoBehaviour {
 				exchangeToken1 = null;
 				exchangeToken2 = null;
 				move = false;
+				//gameManager.isPlayersTurn = !gameManager.isPlayersTurn;
+				Debug.Log("Turn changed.");
 			}
 		}
 	}

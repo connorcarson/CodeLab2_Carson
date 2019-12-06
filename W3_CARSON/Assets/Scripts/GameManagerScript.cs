@@ -98,6 +98,7 @@ public class GameManagerScript : MonoBehaviour
 				inputManager.SelectToken();
 			} else if(!isPlayersTurn && !moveTokenManager.move) {
 				StartCoroutine(opponentController.OpponentMove());
+				isPlayersTurn = true;
 			}
 		} else {
 			if(!moveTokenManager.move){
