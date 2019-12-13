@@ -25,10 +25,8 @@ public class ChessPiece : MonoBehaviour
 
     public PieceColor myColor;
     
+    //EXAMPLE/HELP CODE FROM JACK:
     //public bool isMoving { get; private set; }*/
-    
-    //piece type is one of KQNBRP
-    public string pieceType;
 
     /*public int x, y;
     

@@ -132,11 +132,11 @@ public class MatchManagerScript : MonoBehaviour {
 							if (_gameManager.playHasBegun) {
 								if (_gameManager.isPlayersTurn)
 								{
-									_gameManager.opponentScore++;
+									_gameManager.playerScore++;
 								}
 								else
 								{
-									_gameManager.playerScore++;
+									_gameManager.opponentScore++;
 								}
 							}
 

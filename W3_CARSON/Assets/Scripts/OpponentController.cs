@@ -73,10 +73,10 @@ public class OpponentController : MonoBehaviour
             }
         }
 
-        foreach (var match in possibleMatches)
+        /*foreach (var match in possibleMatches)
         {
             Debug.Log(match.Key[0] + " , " + match.Key[1] + ": " + match.Value);
-        }
+        }*/
     }
 
     void MakeMatch()

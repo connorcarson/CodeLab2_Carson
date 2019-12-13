@@ -95,7 +95,7 @@ public class GameManagerScript : MonoBehaviour
 				inputManager.SelectToken();
 				if (matchManager.GridHasMatch())
 				{
-					isPlayersTurn = false;
+					//isPlayersTurn = false;
 					movesLeft--;
 					currentState = GameState.RemovingMatches;
 				}
@@ -107,7 +107,7 @@ public class GameManagerScript : MonoBehaviour
 			case GameState.CheckingMatch:
 				if (matchManager.GridHasMatch())
 				{
-					isPlayersTurn = true;
+					//isPlayersTurn = true;
 					currentState = GameState.RemovingMatches;
 				}
 				else if (!moveTokenManager.move) currentState = GameState.OpponentMakingMove;
@@ -129,42 +129,11 @@ public class GameManagerScript : MonoBehaviour
 				if (matchManager.GridHasMatch()) currentState = GameState.RemovingMatches;
 				if (!GridHasEmpty() && !matchManager.GridHasMatch())
 				{
+					isPlayersTurn = !isPlayersTurn;
 					currentState = GameState.BoardSettled;
 				}
 				break;
 		}
-		
-		//if the grid does not have an empty cell
-		/*if(!GridHasEmpty())
-		{
-			//if there's a match'
-			if(matchManager.GridHasMatch()){
-				//remove the match
-				matchManager.RemoveMatches(); 
-				//if it's the player's turn
-			} else if (isPlayersTurn){
-				//let the player make a move
-				inputManager.SelectToken(); 
-				//if it's not the player's turn
-			} else if(!isPlayersTurn) {
-				//let the opponent make a move
-				StartCoroutine(opponentController.OpponentMove());
-				//switch turn
-				isPlayersTurn = true;
-			}
-		} 
-		else {//if the grid DOES have an empty cell
-			//if the tokens aren't moving
-			if(!moveTokenManager.move){
-				//set the tokens up to move
-				moveTokenManager.SetupTokenMove();
-			}
-			//if no spaces have been filled
-			if(!moveTokenManager.MoveTokensToFillEmptySpaces()){
-				//repopulate those spaces
-				repopulateManager.AddNewTokensToRepopulateGrid();
-			}
-		}*/
 
 		if (Input.GetKey(KeyCode.R))
 		{
