@@ -69,13 +69,16 @@ public class MoveTokensScript : MonoBehaviour {
 
 		if(lerpPercent >= 1){
 			gameManager.gridArray[(int)exchangeGridPos2.x, (int)exchangeGridPos2.y] = exchangeToken1;
-			gameManager.gridArray[(int)exchangeGridPos1.x, (int)exchangeGridPos1.y] = exchangeToken2;
 
 			if(!matchManager.GridHasMatch() && userSwap){
 				SetupTokenExchange(exchangeToken1, exchangeGridPos2, exchangeToken2, exchangeGridPos1, false);
 			} else {
+				gameManager.gridArray[(int) exchangeGridPos1.x, (int) exchangeGridPos1.y] = null;
+				var capturedToken = exchangeToken2;
+				Destroy(capturedToken);
 				exchangeToken1 = null;
 				exchangeToken2 = null;
+
 				move = false;
 			}
 		}

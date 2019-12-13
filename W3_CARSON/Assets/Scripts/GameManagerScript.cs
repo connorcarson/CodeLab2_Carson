@@ -7,19 +7,13 @@ public class GameManagerScript : MonoBehaviour
 {
 	public bool isPlayersTurn = true;
 	public bool playHasBegun;
-	public int movesLeft;
-	public int yourScore;
-	public int theirScore;
 	public int gridWidth = 8;
 	public int gridHeight = 8;
 	public float tokenSize = 1;
-	public TextMeshProUGUI movesUI;
-	public TextMeshProUGUI yourScoreUI;
-	public TextMeshProUGUI theirScoreUI;
-	public TextMeshProUGUI finalScore;
 	public GameObject gameOverPanel;
-	public ChessPiece.PieceColor playerColor;
-	public ChessPiece.PieceColor opponentColor;
+	public ChessPiece.PieceColor playerColor, opponentColor;
+	public int movesLeft, playerScore, opponentScore;
+	public TextMeshProUGUI movesText, playerScoreText, opponentScoreText, finalScoreText;
 
 	private MatchManagerScript matchManager;
 	private InputManagerScript inputManager;
@@ -38,16 +32,16 @@ public class GameManagerScript : MonoBehaviour
 		set { movesLeft = value; }
 	}
 
-	public int YourScore
+	public int PlayerScore
 	{
-		get { return yourScore; } 
-		set { yourScore = value; }
+		get { return playerScore; } 
+		set { playerScore = value; }
 	}
 
-	public int TheirScore
+	public int OpponentScore
 	{
-		get { return theirScore; }
-		set { theirScore = value; }
+		get { return opponentScore; }
+		set { opponentScore = value; }
 	}
 
 	public enum GameState
@@ -85,11 +79,11 @@ public class GameManagerScript : MonoBehaviour
 
 	public virtual void Update(){
 		//update moves left
-		movesUI.text = "Moves Left: " + MovesLeft;
+		movesText.text = "Moves Left: " + MovesLeft;
 		//update your score
-		yourScoreUI.text = "Your Score: " + YourScore;
+		playerScoreText.text = "Your Score: " + PlayerScore;
 		//update their score
-		theirScoreUI.text = "Their Score: " + TheirScore;
+		opponentScoreText.text = "Their Score: " + OpponentScore;
 
 		switch (currentState)
 		{
@@ -242,6 +236,6 @@ public class GameManagerScript : MonoBehaviour
 	public void GameOver()
 	{
 		gameOverPanel.SetActive(true);
-		finalScore.text = "Score: " + YourScore;
+		finalScoreText.text = "Score: " + PlayerScore;
 	}
 }
