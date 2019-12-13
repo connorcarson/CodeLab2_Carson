@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class MoveTokensScript : MonoBehaviour {
 
-	protected GameManagerScript gameManager;
-	protected MatchManagerScript matchManager;
+	private GameManagerScript gameManager;
+	private MatchManagerScript matchManager;
 
 	public bool move = false;
 
@@ -13,39 +14,34 @@ public class MoveTokensScript : MonoBehaviour {
 
 	bool userSwap;
 
-	protected GameObject exchangeToken1;
-	GameObject exchangeToken2;
-
-	Vector2 exchangeGridPos1;
-	Vector2 exchangeGridPos2;
+	private GameObject exchangeToken1, exchangeToken2;
+	
+	Vector2 exchangeGridPos1, exchangeGridPos2;
 
 	//this runs at the start
-	public virtual void Start () {
+	private void Start () {
 		gameManager = GetComponent<GameManagerScript>();
 		matchManager = GetComponent<MatchManagerScript>();
 		lerpPercent = 0;
 	}
 
 	//this runs every frame
-	public virtual void Update () {
+	private void Update () {
+		if (!move) return;
 		
-		if(move){
-			lerpPercent += lerpSpeed;
-
-			if(lerpPercent >= 1){
-				lerpPercent = 1;
-			}
-
-			if(exchangeToken1 != null){
-				ExchangeTokens();
-			}
+		lerpPercent += lerpSpeed;
+		
+		if(lerpPercent >= 1){
+			lerpPercent = 1;
+		}
+		if(exchangeToken1 != null){
+			ExchangeTokens();
 		}
 	}
 
 	public void SetupTokenMove(){
 		move = true;
 		lerpPercent = 0;
-		Debug.Log("setting up token move.");
 	}
 
 	public void SetupTokenExchange(GameObject token1, Vector2 pos1,
@@ -61,7 +57,7 @@ public class MoveTokensScript : MonoBehaviour {
 		this.userSwap = reversible;
 	}
 
-	public virtual void ExchangeTokens(){
+	private void ExchangeTokens(){
 		Vector3 startPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos1.x, (int)exchangeGridPos1.y);
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
 
@@ -71,7 +67,7 @@ public class MoveTokensScript : MonoBehaviour {
 		exchangeToken1.transform.position = movePos1;
 		exchangeToken2.transform.position = movePos2;
 
-		if(lerpPercent == 1){
+		if(lerpPercent >= 1){
 			gameManager.gridArray[(int)exchangeGridPos2.x, (int)exchangeGridPos2.y] = exchangeToken1;
 			gameManager.gridArray[(int)exchangeGridPos1.x, (int)exchangeGridPos1.y] = exchangeToken2;
 
@@ -81,13 +77,11 @@ public class MoveTokensScript : MonoBehaviour {
 				exchangeToken1 = null;
 				exchangeToken2 = null;
 				move = false;
-				//gameManager.isPlayersTurn = !gameManager.isPlayersTurn;
-				Debug.Log("Turn changed.");
 			}
 		}
 	}
 
-	public virtual void MoveTokenToEmptyPos(int startGridX, int startGridY,
+	private void MoveTokenToEmptyPos(int startGridX, int startGridY,
 	                                int endGridX, int endGridY,
 	                                GameObject token){
 	
@@ -98,30 +92,30 @@ public class MoveTokensScript : MonoBehaviour {
 
 		token.transform.position =	pos;
 
-		if(lerpPercent == 1){
+		if(lerpPercent >= 1){
 			gameManager.gridArray[endGridX, endGridY] = token;
 			gameManager.gridArray[startGridX, startGridY] = null;
 		}
 	}
 
-	public virtual bool MoveTokensToFillEmptySpaces(){
-		bool movedToken = false;
+	public bool MoveTokensToFillEmptySpaces(){
+		var movedToken = false;
 
-		for(int x = 0; x < gameManager.gridWidth; x++){
-			for(int y = 1; y < gameManager.gridHeight ; y++){
-				if(gameManager.gridArray[x, y - 1] == null){
-					for(int pos = y; pos < gameManager.gridHeight; pos++){
-						GameObject token = gameManager.gridArray[x, pos];
-						if(token != null){
-							MoveTokenToEmptyPos(x, pos, x, pos - 1, token);
-							movedToken = true;
-						}
-					}
+		for(var x = 0; x < gameManager.gridWidth; x++){
+			for(var y = 1; y < gameManager.gridHeight ; y++)
+			{
+				if (!ReferenceEquals(gameManager.gridArray[x, y - 1], null)) continue;
+				
+				for(var pos = y; pos < gameManager.gridHeight; pos++){
+					var token = gameManager.gridArray[x, pos];
+					if (ReferenceEquals(token, null)) continue;
+					MoveTokenToEmptyPos(x, pos, x, pos - 1, token);
+					movedToken = true;
 				}
 			}
 		}
 
-		if(lerpPercent == 1){
+		if(lerpPercent >= 1){
 			move = false;
 		}
 

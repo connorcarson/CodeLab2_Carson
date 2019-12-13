@@ -92,7 +92,7 @@ public class InputManagerScript : MonoBehaviour {
 		_moveManager.SetupTokenExchange(_selected, pos1, _secondSelected, pos2, true);
 		_gameManager.movesLeft--;
 		_gameManager.playHasBegun = true;
-		_gameManager.isPlayersTurn = false;
+		//_gameManager.isPlayersTurn = false;
 	}
 
 	private bool IsValidQueenMove(int x, int y)
