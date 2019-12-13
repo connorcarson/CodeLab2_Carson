@@ -80,35 +80,36 @@ public class GameManagerScript : MonoBehaviour
 		//update their score
 		theirScoreUI.text = "Their Score: " + TheirScore;
 
-		
 		switch (currentState)
 		{
 			case GameState.BoardSettled:
-				if (!GridHasEmpty() && isPlayersTurn) currentState = GameState.PlayerMakingMove;
-				else if (!GridHasEmpty() && !isPlayersTurn) currentState = GameState.OpponentMakingMove;
+				if (isPlayersTurn) currentState = GameState.PlayerMakingMove;
+				else {currentState = GameState.OpponentMakingMove;}
 				break;
 			case GameState.PlayerMakingMove:
 				inputManager.SelectToken();
-				currentState = GameState.CheckingMatch;
+				if (matchManager.GridHasMatch())
+				{
+					isPlayersTurn = false;
+					currentState = GameState.RemovingMatches;
+				}
 				break;
 			case GameState.OpponentMakingMove:
 				StartCoroutine(opponentController.OpponentMove());
-				
 				currentState = GameState.CheckingMatch;
 				break;
 			case GameState.CheckingMatch:
 				if (matchManager.GridHasMatch())
 				{
+					isPlayersTurn = true;
 					currentState = GameState.RemovingMatches;
 				}
-				else if (isPlayersTurn && !moveTokenManager.move) currentState = GameState.PlayerMakingMove;
-				else if (!isPlayersTurn && !moveTokenManager.move) currentState = GameState.OpponentMakingMove;
+				else if (!moveTokenManager.move) currentState = GameState.OpponentMakingMove;
 				break;
 			case GameState.RemovingMatches:
 				matchManager.RemoveMatches();
 				if (GridHasEmpty() && !moveTokenManager.MoveTokensToFillEmptySpaces())
 				{
-					isPlayersTurn = !isPlayersTurn;
 					currentState = GameState.FillingBoard;
 				}
 				break;
@@ -116,71 +117,45 @@ public class GameManagerScript : MonoBehaviour
 				if(!moveTokenManager.move){
 					moveTokenManager.SetupTokenMove();
 				}
-				repopulateManager.AddNewTokensToRepopulateGrid();
-				if (!moveTokenManager.MoveTokensToFillEmptySpaces()) currentState = GameState.BoardSettled;
+				if (!moveTokenManager.MoveTokensToFillEmptySpaces()) {
+					repopulateManager.AddNewTokensToRepopulateGrid();
+				}
+				if (matchManager.GridHasMatch()) currentState = GameState.RemovingMatches;
+				if (!GridHasEmpty() && !matchManager.GridHasMatch())
+				{
+					currentState = GameState.BoardSettled;
+				}
 				break;
 		}
 		
-		/*switch (currentState)
-		{
-			case GameState.BoardSettled:
-				if (!GridHasEmpty() && isPlayersTurn) currentState = GameState.PlayerMakingMove;
-				else if (!GridHasEmpty() && !isPlayersTurn) currentState = GameState.OpponentMakingMove;
-				break;
-			case GameState.PlayerMakingMove:
-				inputManager.SelectToken();
-				currentState = GameState.CheckingMatch;
-				break;
-			case GameState.OpponentMakingMove:
-				StartCoroutine(opponentController.OpponentMove());
-				
-				currentState = GameState.CheckingMatch;
-				break;
-			case GameState.CheckingMatch:
-				if (matchManager.GridHasMatch())
-				{
-					currentState = GameState.RemovingMatches;
-				}
-				else if (isPlayersTurn && !moveTokenManager.move) currentState = GameState.PlayerMakingMove;
-				else if (!isPlayersTurn && !moveTokenManager.move) currentState = GameState.OpponentMakingMove;
-				break;
-			case GameState.RemovingMatches:
-				matchManager.RemoveMatches();
-				if (GridHasEmpty() && !moveTokenManager.MoveTokensToFillEmptySpaces())
-				{
-					isPlayersTurn = !isPlayersTurn;
-					currentState = GameState.FillingBoard;
-				}
-				break;
-			case GameState.FillingBoard:
-				if(!moveTokenManager.move){
-					moveTokenManager.SetupTokenMove();
-				}
-				repopulateManager.AddNewTokensToRepopulateGrid();
-				if (!moveTokenManager.MoveTokensToFillEmptySpaces()) currentState = GameState.BoardSettled;
-				break;
-		}*/
-		
+		//if the grid does not have an empty cell
 		/*if(!GridHasEmpty())
 		{
-			if (moveTokenManager.lerpPercent >= 1)
-			{
-				moveTokenManager.move = false;
-			}
+			//if there's a match'
 			if(matchManager.GridHasMatch()){
-				matchManager.RemoveMatches();
-			} else if (isPlayersTurn && !moveTokenManager.move){
-				inputManager.SelectToken();
-			} else if(!isPlayersTurn && !moveTokenManager.move) {
+				//remove the match
+				matchManager.RemoveMatches(); 
+				//if it's the player's turn
+			} else if (isPlayersTurn){
+				//let the player make a move
+				inputManager.SelectToken(); 
+				//if it's not the player's turn
+			} else if(!isPlayersTurn) {
+				//let the opponent make a move
 				StartCoroutine(opponentController.OpponentMove());
+				//switch turn
 				isPlayersTurn = true;
 			}
 		} 
-		else {
+		else {//if the grid DOES have an empty cell
+			//if the tokens aren't moving
 			if(!moveTokenManager.move){
+				//set the tokens up to move
 				moveTokenManager.SetupTokenMove();
 			}
+			//if no spaces have been filled
 			if(!moveTokenManager.MoveTokensToFillEmptySpaces()){
+				//repopulate those spaces
 				repopulateManager.AddNewTokensToRepopulateGrid();
 			}
 		}*/
