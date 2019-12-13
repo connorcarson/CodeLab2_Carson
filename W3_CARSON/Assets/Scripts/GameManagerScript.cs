@@ -67,8 +67,14 @@ public class GameManagerScript : MonoBehaviour
 		gridArray = new GameObject[gridWidth, gridHeight];
 		MakeGrid();
 
-		playerColor = ChessPiece.PieceColor.Black;
-		opponentColor = ChessPiece.PieceColor.White;
+		if (playerColor == ChessPiece.PieceColor.Black)
+		{
+			opponentColor = ChessPiece.PieceColor.White;
+		}
+		else
+		{
+			opponentColor = ChessPiece.PieceColor.Black;
+		}
 
 		matchManager = GetComponent<MatchManagerScript>();
 		inputManager = GetComponent<InputManagerScript>();
