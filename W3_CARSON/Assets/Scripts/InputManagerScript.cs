@@ -62,27 +62,50 @@ public class InputManagerScript : MonoBehaviour {
 				switch (pieceType)
 				{
 					case "q":
-						if(IsValidQueenMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidQueenMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					case "k":
-						if(IsValidKingMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidKingMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					case "b":
-						if(IsValidBishopMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidBishopMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					case "n":
-						if(IsValidKnightMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidKnightMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					case "r":
-						if(IsValidRookMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidRookMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					case "p":
-						if(IsValidPawnMove(x, y)) _gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+						if (IsValidPawnMove(x, y))
+						{
+							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
+							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
+						}
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
-				validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 			}
 		}
 	}
