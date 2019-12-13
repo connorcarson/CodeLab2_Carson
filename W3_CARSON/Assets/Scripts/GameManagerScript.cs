@@ -91,6 +91,7 @@ public class GameManagerScript : MonoBehaviour
 				if (matchManager.GridHasMatch())
 				{
 					isPlayersTurn = false;
+					movesLeft--;
 					currentState = GameState.RemovingMatches;
 				}
 				break;
@@ -212,9 +213,9 @@ public class GameManagerScript : MonoBehaviour
 			(y - gridHeight/2) * tokenSize);
 	}
 	
-	public string GetPieceType(GameObject piece)
+	public ChessPiece.PieceType GetPieceType(GameObject piece)
 	{
-		return piece.GetComponent<ChessPiece>().pieceType;
+		return piece.GetComponent<ChessPiece>().myType;
 	}
 
 	public void AddTokenToPosInGrid(int x, int y, GameObject parent){

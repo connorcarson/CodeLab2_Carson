@@ -11,7 +11,7 @@ public class InputManagerScript : MonoBehaviour {
 	private Camera _cam;
 	private Vector2 pos1;
 	private Vector2 pos2;
-	private string currentPieceType;
+	private ChessPiece.PieceType currentPieceType;
 	private List<GameObject> validSecondaryPieces = new List<GameObject>();
 
 	public Color32 defaultColor;
@@ -52,7 +52,7 @@ public class InputManagerScript : MonoBehaviour {
 		}
 	}
 
-	public void IndicateValidMoves(string pieceType, Color32 token1Color, Color32 token2Color)
+	public void IndicateValidMoves(ChessPiece.PieceType pieceType, Color32 token1Color, Color32 token2Color)
 	{ 
 		_selected.GetComponent<SpriteRenderer>().color = token1Color;
 		for (int x = 0; x < _gameManager.gridWidth; x++)
@@ -61,42 +61,42 @@ public class InputManagerScript : MonoBehaviour {
 			{
 				switch (pieceType)
 				{
-					case "q":
+					case ChessPiece.PieceType.Queen:
 						if (IsValidQueenMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
 							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 						}
 						break;
-					case "k":
+					case ChessPiece.PieceType.King:
 						if (IsValidKingMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
 							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 						}
 						break;
-					case "b":
+					case ChessPiece.PieceType.Bishop:
 						if (IsValidBishopMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
 							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 						}
 						break;
-					case "n":
+					case ChessPiece.PieceType.Knight:
 						if (IsValidKnightMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
 							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 						}
 						break;
-					case "r":
+					case ChessPiece.PieceType.Rook:
 						if (IsValidRookMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
 							validSecondaryPieces.Add(_gameManager.gridArray[x, y]);
 						}
 						break;
-					case "p":
+					case ChessPiece.PieceType.Pawn:
 						if (IsValidPawnMove(x, y))
 						{
 							_gameManager.gridArray[x, y].GetComponent<SpriteRenderer>().color = token2Color;
@@ -113,9 +113,7 @@ public class InputManagerScript : MonoBehaviour {
 	public void SwapPieces()
 	{
 		_moveManager.SetupTokenExchange(_selected, pos1, _secondSelected, pos2, true);
-		_gameManager.movesLeft--;
 		_gameManager.playHasBegun = true;
-		//_gameManager.isPlayersTurn = false;
 	}
 
 	private bool IsValidQueenMove(int x, int y)

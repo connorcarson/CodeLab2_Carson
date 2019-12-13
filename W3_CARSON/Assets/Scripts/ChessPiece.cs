@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[System.Serializable]
+[System.Serializable]
 public class ChessPiece : MonoBehaviour
 {
-    /*public enum PieceType
+    public enum PieceType
     {
         King,
         Queen,
@@ -16,8 +16,16 @@ public class ChessPiece : MonoBehaviour
     }
 
     public PieceType myType;
+
+    public enum PieceColor
+    {
+        Black,
+        White
+    }
+
+    public PieceColor myColor;
     
-    public bool isMoving { get; private set; }*/
+    //public bool isMoving { get; private set; }*/
     
     //piece type is one of KQNBRP
     public string pieceType;

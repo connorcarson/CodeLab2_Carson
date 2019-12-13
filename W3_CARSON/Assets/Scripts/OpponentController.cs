@@ -101,13 +101,13 @@ public class OpponentController : MonoBehaviour
         if (move.x > 0 && move.x < _gameManager.gridWidth - 2 && move.y > 0 && move.y < _gameManager.gridHeight - 2) return true;
         return false;
     }
-    Vector2[] ValidMoves(Vector2 pos1, string pieceType)
+    Vector2[] ValidMoves(Vector2 pos1, ChessPiece.PieceType pieceType)
     {
         Vector2[] validMoves;
         
         switch (pieceType)
         {
-            case "q":
+            case ChessPiece.PieceType.Queen:
                 validMoves = new[]
                 {
                     #region Queen Moves
@@ -179,7 +179,7 @@ public class OpponentController : MonoBehaviour
                     #endregion
                 };
                 break;
-            case "k":
+            case ChessPiece.PieceType.King:
                 validMoves = new []
                 {
                     #region King Moves
@@ -195,7 +195,7 @@ public class OpponentController : MonoBehaviour
                     #endregion
                 };
                 break;
-            case "n":
+            case ChessPiece.PieceType.Knight:
                 validMoves = new[]
                 {
                     #region Knight Moves
@@ -212,7 +212,7 @@ public class OpponentController : MonoBehaviour
                     #endregion
                 };
                 break;
-            case "b":
+            case ChessPiece.PieceType.Bishop:
                 validMoves = new[]
                 {
                     #region Bishop Moves
@@ -252,7 +252,7 @@ public class OpponentController : MonoBehaviour
                     #endregion
                 };
                 break;
-            case "r":
+            case ChessPiece.PieceType.Rook:
                 validMoves = new[]
                 {
                     #region Rook Moves
@@ -292,7 +292,7 @@ public class OpponentController : MonoBehaviour
                     #endregion
                 };
                 break;
-            case "p":
+            case ChessPiece.PieceType.Pawn:
                 validMoves = new[]
                 {
                     #region Pawn Moves
@@ -310,59 +310,59 @@ public class OpponentController : MonoBehaviour
         return validMoves;
     }
     
-    public bool GridHasHorizontalMatch(Vector2 pos1, Vector2 pos2){
+    public bool GridHasHorizontalMatch(Vector2 piece1, Vector2 piece2){
         //Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
-        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        GameObject token1 = _gameManager.gridArray[(int)piece1.x, (int)piece1.y];
         //Debug.Log((int)pos2.x + 1 + ", " + (int)pos2.y);
-        GameObject token2 = _gameManager.gridArray[(int)pos2.x + 1, (int)pos2.y];
+        GameObject token2 = _gameManager.gridArray[(int)piece2.x + 1, (int)piece2.y];
         //Debug.Log((int)pos2.x + 2 + ", " + (int)pos2.y);
-        GameObject token3 = _gameManager.gridArray[(int)pos2.x + 2, (int)pos2.y];
+        GameObject token3 = _gameManager.gridArray[(int)piece2.x + 2, (int)piece2.y];
 
         if(token1 != null && token2 != null && token3 != null){
-            SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
-            SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
-            SpriteRenderer sr3 = token3.GetComponent<SpriteRenderer>();
+            ChessPiece.PieceType type1 = token1.GetComponent<ChessPiece>().myType;
+            ChessPiece.PieceType type2 = token2.GetComponent<ChessPiece>().myType;
+            ChessPiece.PieceType type3 = token3.GetComponent<ChessPiece>().myType;
 			
-            return (sr1.sprite == sr2.sprite && sr2.sprite == sr3.sprite);
+            return (type1 == type2 && type2 == type3);
         } else {
             return false;
         }
     }
     
-    public bool GridHasVerticalMatch(Vector2 pos1, Vector2 pos2){
+    public bool GridHasVerticalMatch(Vector2 piece1, Vector2 piece2){
         //Debug.Log((int)pos1.x  + ", " + (int)pos1.y);
-        GameObject token1 = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        GameObject token1 = _gameManager.gridArray[(int)piece1.x, (int)piece1.y];
         //Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 1);
-        GameObject token2 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 1];
+        GameObject token2 = _gameManager.gridArray[(int)piece2.x, (int)piece2.y + 1];
         //Debug.Log((int)pos2.x  + ", " + (int)pos2.y + 2);
-        GameObject token3 = _gameManager.gridArray[(int)pos2.x, (int)pos2.y + 2];
+        GameObject token3 = _gameManager.gridArray[(int)piece2.x, (int)piece2.y + 2];
 
         if(token1 != null && token2 != null && token3 != null){
-            SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
-            SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
-            SpriteRenderer sr3 = token3.GetComponent<SpriteRenderer>();
+            ChessPiece.PieceType type1 = token1.GetComponent<ChessPiece>().myType;
+            ChessPiece.PieceType type2 = token2.GetComponent<ChessPiece>().myType;
+            ChessPiece.PieceType type3 = token3.GetComponent<ChessPiece>().myType;
 			
-            return (sr1.sprite == sr2.sprite && sr2.sprite == sr3.sprite);
+            return (type1 == type2 && type2 == type3);
         } else {
             return false;
         }
     }
     
-    private int _GetHorizontalMatchLength(Vector2 pos1, Vector2 pos2){
+    private int _GetHorizontalMatchLength(Vector2 piece1, Vector2 piece2){
         int matchLength = 1;
 		
-        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        GameObject first = _gameManager.gridArray[(int)piece1.x, (int)piece1.y];
 
         if(first != null){
-            SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+            ChessPiece.PieceType type1 = first.GetComponent<ChessPiece>().myType;
 			
-            for(int i = (int)pos2.x + 1; i < _gameManager.gridWidth; i++){
-                GameObject other = _gameManager.gridArray[i, (int)pos2.y];
+            for(int i = (int)piece2.x + 1; i < _gameManager.gridWidth; i++){
+                GameObject other = _gameManager.gridArray[i, (int)piece2.y];
 
                 if(other != null){
-                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+                    ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-                    if(sr1.sprite == sr2.sprite){
+                    if(type1 == type2){
                         matchLength++;
                     } else {
                         break;
@@ -372,13 +372,13 @@ public class OpponentController : MonoBehaviour
                 }
             }
             
-            for(int i = (int)pos2.x - 1; i >= 0; i--){
-                GameObject other = _gameManager.gridArray[i, (int)pos2.y];
+            for(int i = (int)piece2.x - 1; i >= 0; i--){
+                GameObject other = _gameManager.gridArray[i, (int)piece2.y];
 
                 if(other != null){
-                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+                    ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-                    if(sr1.sprite == sr2.sprite){
+                    if(type1 == type2){
                         matchLength++;
                     } else {
                         break;
@@ -392,21 +392,21 @@ public class OpponentController : MonoBehaviour
         return matchLength;
     }
     
-    private int _GetVerticalMatchLength(Vector2 pos1, Vector2 pos2) {
+    private int _GetVerticalMatchLength(Vector2 piece1, Vector2 piece2) {
         int matchLength = 1;
 
-        GameObject first = _gameManager.gridArray[(int)pos1.x, (int)pos1.y];
+        GameObject first = _gameManager.gridArray[(int)piece1.x, (int)piece1.y];
 
         if (first != null) {
-            SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+            ChessPiece.PieceType type1 = first.GetComponent<ChessPiece>().myType;
 
-            for (int i = (int)pos2.y + 1; i < _gameManager.gridHeight; i++) {
-                GameObject other = _gameManager.gridArray[(int)pos2.x, i];
+            for (int i = (int)piece2.y + 1; i < _gameManager.gridHeight; i++) {
+                GameObject other = _gameManager.gridArray[(int)piece2.x, i];
 
                 if (other != null) {
-                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+                    ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-                    if (sr1.sprite == sr2.sprite) {
+                    if (type1 == type2) {
                         matchLength++;
                     } else {
                         break;
@@ -416,13 +416,13 @@ public class OpponentController : MonoBehaviour
                 }
             }
             
-            for (int i = (int)pos2.y - 1; i >= 0; i--) {
-                GameObject other = _gameManager.gridArray[(int)pos2.x, i];
+            for (int i = (int)piece2.y - 1; i >= 0; i--) {
+                GameObject other = _gameManager.gridArray[(int)piece2.x, i];
 
                 if (other != null) {
-                    SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+                    ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-                    if (sr1.sprite == sr2.sprite) {
+                    if (type1 == type2) {
                         matchLength++;
                     } else {
                         break;

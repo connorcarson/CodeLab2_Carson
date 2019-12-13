@@ -33,11 +33,11 @@ public class MatchManagerScript : MonoBehaviour {
 		GameObject token3 = _gameManager.gridArray[x + 2, y];
 		
 		if(token1 != null && token2 != null && token3 != null){
-			SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
-			SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
-			SpriteRenderer sr3 = token3.GetComponent<SpriteRenderer>();
+			ChessPiece.PieceType type1 = token1.GetComponent<ChessPiece>().myType;
+			ChessPiece.PieceType type2 = token2.GetComponent<ChessPiece>().myType;
+			ChessPiece.PieceType type3 = token3.GetComponent<ChessPiece>().myType;
 			
-			return (sr1.sprite == sr2.sprite && sr2.sprite == sr3.sprite);
+			return (type1 == type2 && type2 == type3);
 		} else {
 			return false;
 		}
@@ -49,11 +49,11 @@ public class MatchManagerScript : MonoBehaviour {
 		GameObject token3 = _gameManager.gridArray[x, y + 2];
 		
 		if(token1 != null && token2 != null && token3 != null){
-			SpriteRenderer sr1 = token1.GetComponent<SpriteRenderer>();
-			SpriteRenderer sr2 = token2.GetComponent<SpriteRenderer>();
-			SpriteRenderer sr3 = token3.GetComponent<SpriteRenderer>();
+			ChessPiece.PieceType type1 = token1.GetComponent<ChessPiece>().myType;
+			ChessPiece.PieceType type2 = token2.GetComponent<ChessPiece>().myType;
+			ChessPiece.PieceType type3 = token3.GetComponent<ChessPiece>().myType;
 			
-			return (sr1.sprite == sr2.sprite && sr2.sprite == sr3.sprite);
+			return (type1 == type2 && type2 == type3);
 		} else {
 			return false;
 		}
@@ -65,15 +65,15 @@ public class MatchManagerScript : MonoBehaviour {
 		GameObject first = _gameManager.gridArray[x, y];
 
 		if(first != null){
-			SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+			ChessPiece.PieceType type1 = first.GetComponent<ChessPiece>().myType;
 			
 			for(int i = x + 1; i < _gameManager.gridWidth; i++){
 				GameObject other = _gameManager.gridArray[i, y];
 
 				if(other != null){
-					SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+					ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-					if(sr1.sprite == sr2.sprite){
+					if(type1 == type2){
 						matchLength++;
 					} else {
 						break;
@@ -93,15 +93,15 @@ public class MatchManagerScript : MonoBehaviour {
 		GameObject first = _gameManager.gridArray[x, y];
 
 		if (first != null) {
-			SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
+			ChessPiece.PieceType type1 = first.GetComponent<ChessPiece>().myType;
 
 			for (int i = y + 1; i < _gameManager.gridHeight; i++) {
 				GameObject other = _gameManager.gridArray[x, i];
 
 				if (other != null) {
-					SpriteRenderer sr2 = other.GetComponent<SpriteRenderer>();
+					ChessPiece.PieceType type2 = other.GetComponent<ChessPiece>().myType;
 
-					if (sr1.sprite == sr2.sprite) {
+					if (type1 == type2) {
 						matchLength++;
 					} else {
 						break;

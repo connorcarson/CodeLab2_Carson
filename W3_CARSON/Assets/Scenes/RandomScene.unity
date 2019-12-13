@@ -168,6 +168,7 @@ MonoBehaviour:
   finalScore: {fileID: 2083328215}
   gameOverPanel: {fileID: 900494294}
   grid: {fileID: 0}
+  currentState: 4
 --- !u!4 &636344697
 Transform:
   m_ObjectHideFlags: 0

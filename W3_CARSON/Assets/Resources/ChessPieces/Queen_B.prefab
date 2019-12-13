@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6510157094209306402}
   - component: {fileID: -4995935318578278248}
   m_Layer: 0
-  m_Name: Queen_W
+  m_Name: Queen_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2026996418080791694, guid: da33b29c650554ffda8d21f4aa24eba8,
+  m_Sprite: {fileID: -7918809190652352185, guid: da33b29c650554ffda8d21f4aa24eba8,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,7 +99,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.84, y: 1.68}
+    oldSize: {x: 1.84, y: 1.71}
     newSize: {x: 0.5, y: 0.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 1
-  myColor: 1
+  myColor: 0
   pieceType: q
