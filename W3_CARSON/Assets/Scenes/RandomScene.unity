@@ -154,21 +154,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ba5a99ab4c24c9eab4e107b7b6084c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayersTurn: 1
+  isPlayersTurn: 0
   playHasBegun: 0
-  movesLeft: 10
-  yourScore: 0
-  theirScore: 0
   gridWidth: 8
   gridHeight: 8
   tokenSize: 1
-  movesUI: {fileID: 1618896289}
-  yourScoreUI: {fileID: 2072104308}
-  theirScoreUI: {fileID: 1373607449}
-  finalScore: {fileID: 2083328215}
   gameOverPanel: {fileID: 900494294}
   playerColor: 0
   opponentColor: 0
+  movesLeft: 10
+  playerScore: 0
+  opponentScore: 0
+  movesText: {fileID: 1618896289}
+  playerScoreText: {fileID: 2072104308}
+  opponentScoreText: {fileID: 1373607449}
+  finalScoreText: {fileID: 2083328215}
   grid: {fileID: 0}
   currentState: 4
 --- !u!4 &636344697
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278201785
-  m_fontColor: {r: 0.7264151, g: 0.18034795, b: 0, a: 1}
+  m_fontColor: {r: 0.7019608, g: 0.49803922, b: 0.2901961, a: 0.7254902}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278201785
-  m_fontColor: {r: 0.7264151, g: 0.18034795, b: 0, a: 1}
+  m_fontColor: {r: 0.7019608, g: 0.49803922, b: 0.2901961, a: 0.7254902}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278201785
-  m_fontColor: {r: 0.7264151, g: 0.18034795, b: 0, a: 1}
+  m_fontColor: {r: 0.7019608, g: 0.49803922, b: 0.2901961, a: 0.7254902}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
