@@ -32,39 +32,42 @@ public class OpponentController : MonoBehaviour
             for (int y = 0; y < _gameManager.gridHeight; y++)
             {
                 var toCheck = _gameManager.gridArray[x, y];
-                pos1 = _gameManager.GetPositionOfTokenInGrid(toCheck);
-                var currentPieceType = _gameManager.GetPieceType(toCheck);
-                
-                foreach (var move in ValidMoves(pos1, currentPieceType))
+                if (toCheck.GetComponent<ChessPiece>().myColor == _gameManager.opponentColor)
                 {
-                    if (InGrid(move))
+                    pos1 = _gameManager.GetPositionOfTokenInGrid(toCheck);
+                    var currentPieceType = _gameManager.GetPieceType(toCheck);
+                
+                    foreach (var move in ValidMoves(pos1, currentPieceType))
                     {
-                        //if there's a match, add that move to a list of possible moves
-                        if (GridHasHorizontalMatch(pos1, move))
+                        if (InGrid(move))
                         {
-                            horizontalMatches.Add(new[] {pos1, move});
-                        }
-                        if (GridHasVerticalMatch(pos1, move))
-                        {
-                            verticalMatches.Add(new[] {pos1, move});
+                            //if there's a match, add that move to a list of possible moves
+                            if (GridHasHorizontalMatch(pos1, move))
+                            {
+                                horizontalMatches.Add(new[] {pos1, move});
+                            }
+                            if (GridHasVerticalMatch(pos1, move))
+                            {
+                                verticalMatches.Add(new[] {pos1, move});
+                            }
                         }
                     }
-                }
 
-                //add possible match and its match length to our dictionary
-                foreach (var match in horizontalMatches)
-                {
-                    if (possibleMatches.ContainsKey(match) == false)
+                    //add possible match and its match length to our dictionary
+                    foreach (var match in horizontalMatches)
                     {
-                        possibleMatches.Add(match, _GetHorizontalMatchLength(match[0], match[1]));
+                        if (possibleMatches.ContainsKey(match) == false)
+                        {
+                            possibleMatches.Add(match, _GetHorizontalMatchLength(match[0], match[1]));
+                        }
                     }
-                }
                 
-                foreach (var match in verticalMatches)
-                {
-                    if (possibleMatches.ContainsKey(match) == false)
+                    foreach (var match in verticalMatches)
                     {
-                        possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
+                        if (possibleMatches.ContainsKey(match) == false)
+                        {
+                            possibleMatches.Add(match, _GetVerticalMatchLength(match[0], match[1]));
+                        }
                     }
                 }
             }
