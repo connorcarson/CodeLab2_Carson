@@ -31,7 +31,7 @@ public class GameManagerScript : MonoBehaviour
 	public  GameObject[,] gridArray;
 	private Object[] _tokenTypes;
 	//private GameObject _selected;
-
+	
 	public int MovesLeft
 	{
 		get { return movesLeft; }

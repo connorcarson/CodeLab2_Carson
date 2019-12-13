@@ -167,6 +167,8 @@ MonoBehaviour:
   theirScoreUI: {fileID: 1373607449}
   finalScore: {fileID: 2083328215}
   gameOverPanel: {fileID: 900494294}
+  playerColor: 0
+  opponentColor: 0
   grid: {fileID: 0}
   currentState: 4
 --- !u!4 &636344697

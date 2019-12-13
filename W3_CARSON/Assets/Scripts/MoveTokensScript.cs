@@ -62,10 +62,10 @@ public class MoveTokensScript : MonoBehaviour {
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
 
 		Vector3 movePos1 = Vector3.Lerp(startPos, endPos, lerpPercent);
-		Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
+		//Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
 
 		exchangeToken1.transform.position = movePos1;
-		exchangeToken2.transform.position = movePos2;
+		//exchangeToken2.transform.position = movePos2;
 
 		if(lerpPercent >= 1){
 			gameManager.gridArray[(int)exchangeGridPos2.x, (int)exchangeGridPos2.y] = exchangeToken1;
