@@ -29,22 +29,27 @@ public class InputManagerScript : MonoBehaviour {
 			Vector3 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
 			
 			Collider2D tokenCollider = Physics2D.OverlapPoint(mousePos);
-			if(tokenCollider != null){
+			if(tokenCollider != null)
+			{
 				if(_selected == null){
-					_selected = tokenCollider.gameObject;
-					currentPieceType = _gameManager.GetPieceType(_selected);
-					pos1 = _gameManager.GetPositionOfTokenInGrid(_selected);
-					IndicateValidMoves(currentPieceType, selectedColor, indicatedColor);
+					var pieceColor = tokenCollider.GetComponent<ChessPiece>().myColor;
+					if (pieceColor == _gameManager.playerColor)
+					{
+						_selected = tokenCollider.gameObject;
+						currentPieceType = _gameManager.GetPieceType(_selected);
+						pos1 = _gameManager.GetPositionOfTokenInGrid(_selected);
+						IndicateValidMoves(currentPieceType, selectedColor, indicatedColor);
+					}
 				} else {
 					_secondSelected = tokenCollider.gameObject;
 					pos2 = _gameManager.GetPositionOfTokenInGrid(tokenCollider.gameObject);
 					IndicateValidMoves(currentPieceType, defaultColor, defaultColor);
-					
+				
 					if (validSecondaryPieces.Contains(_secondSelected))
 					{
 						SwapPieces();
 					}
-					
+				
 					_selected = null;
 					_secondSelected = null;
 				}

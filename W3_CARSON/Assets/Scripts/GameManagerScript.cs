@@ -18,6 +18,8 @@ public class GameManagerScript : MonoBehaviour
 	public TextMeshProUGUI theirScoreUI;
 	public TextMeshProUGUI finalScore;
 	public GameObject gameOverPanel;
+	public ChessPiece.PieceColor playerColor;
+	public ChessPiece.PieceColor opponentColor;
 
 	private MatchManagerScript matchManager;
 	private InputManagerScript inputManager;
@@ -27,8 +29,8 @@ public class GameManagerScript : MonoBehaviour
 
 	public GameObject grid;
 	public  GameObject[,] gridArray;
-	private Object[] tokenTypes;
-	private GameObject selected;
+	private Object[] _tokenTypes;
+	//private GameObject _selected;
 
 	public int MovesLeft
 	{
@@ -61,10 +63,13 @@ public class GameManagerScript : MonoBehaviour
 	public GameState currentState;
 	
 	public virtual void Start () {
-		tokenTypes = Resources.LoadAll("ChessPieces/");
+		_tokenTypes = Resources.LoadAll("ChessPieces/");
 		gridArray = new GameObject[gridWidth, gridHeight];
 		MakeGrid();
-		
+
+		playerColor = ChessPiece.PieceColor.Black;
+		opponentColor = ChessPiece.PieceColor.White;
+
 		matchManager = GetComponent<MatchManagerScript>();
 		inputManager = GetComponent<InputManagerScript>();
 		repopulateManager = GetComponent<RepopulateScript>();
@@ -221,7 +226,7 @@ public class GameManagerScript : MonoBehaviour
 	public void AddTokenToPosInGrid(int x, int y, GameObject parent){
 		Vector3 position = GetWorldPositionFromGridPosition(x, y);
 		GameObject token = 
-			Instantiate(tokenTypes[Random.Range(0, tokenTypes.Length)], 
+			Instantiate(_tokenTypes[Random.Range(0, _tokenTypes.Length)], 
 			            position, 
 			            Quaternion.identity) as GameObject;
 		token.transform.parent = parent.transform;
